@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "I22l431TI/I=",
+  "dgSpecHash": "Y/DoXqferyo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\adm-scholakova\\Desktop\\TodoApi\\TodoApi.csproj",
+  "projectFilePath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\aspire.hosting\\9.3.1\\aspire.hosting.9.3.1.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\aspire.hosting.postgresql\\9.3.1\\aspire.hosting.postgresql.9.3.1.nupkg.sha512",

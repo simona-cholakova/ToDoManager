@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adm-scholakova\\Desktop\\TodoApi\\TodoApi.csproj": {}
+    "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adm-scholakova\\Desktop\\TodoApi\\TodoApi.csproj": {
+    "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adm-scholakova\\Desktop\\TodoApi\\TodoApi.csproj",
+        "projectUniqueName": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
         "projectName": "TodoApi",
-        "projectPath": "C:\\Users\\adm-scholakova\\Desktop\\TodoApi\\TodoApi.csproj",
+        "projectPath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
         "packagesPath": "C:\\Users\\adm-scholakova\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adm-scholakova\\Desktop\\TodoApi\\obj\\",
+        "outputPath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\adm-scholakova\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -46,6 +46,10 @@
             "Aspire.Hosting.PostgreSQL": {
               "target": "Package",
               "version": "[9.3.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
