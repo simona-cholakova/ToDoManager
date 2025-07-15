@@ -12,4 +12,7 @@ public class TodoContext : IdentityDbContext<User>
     }
 
     public DbSet<TodoItem> ToDoItems { get; set; } = null!;
+    public DbSet<FileRecord> FileRecords { get; set; } = null!;
+
 }
+

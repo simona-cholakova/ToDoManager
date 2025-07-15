@@ -23,7 +23,6 @@ namespace TodoApi.Controllers
         {
             var todoItem = new TodoItem
             {
-                // Do NOT assign Id here, ignore client-supplied Id
                 Name = todoItemDTO.Name,
                 UserId = _userManager.GetUserId(User),
                 IsComplete = todoItemDTO.IsComplete,
