@@ -39,8 +39,8 @@ builder.Services.AddScoped(sp =>
     return kernel;
 });
 
-builder.Services.AddScoped(sp => {var kernel = sp.GetRequiredService<Kernel>();    return kernel.GetRequiredService<IChatCompletionService>();});
-
+builder.Services.AddScoped(sp => {var kernel = sp.GetRequiredService<Kernel>();    
+    return kernel.GetRequiredService<IChatCompletionService>();});
 
 var app = builder.Build();
 

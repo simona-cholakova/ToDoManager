@@ -1,0 +1,81 @@
+here are some tips on how to prevent fire: 
+Fire Protection and Prevention 
+The Occupational Safety and Health Administration (OSHA) requires 
+employers to implement fire protection and prevention programs in the 
+workplace. The regulations that apply to fire protection and prevention can 
+be found mainly in Subpart F of the construction standards, though the 
+requirement for a fire prevention program is first set out in Subpart C. The 
+following sections of the construction standards contain requirements for fire 
+protection that are of significance to roofing contractors: 
+1926.24 Subpart C, Fire protection and prevention programs 
+1926.150 Fire protection 
+1926.151 Fire prevention 
+1926.152 Flammable and combustible liquids 
+1926.153 Liquefied petroleum gas (LP-Gas) 
+1926.154 Temporary heating devices 
+1926.155 Definitions 
+1926.550 Subpart N, Cranes and derricks  
+Following this chapter, there is a list of fire safety work practices addressing 
+many fire hazards found in the roofing workplace, including field operations 
+and shop activities. Contractors should review the elements of the list most 
+applicable to their companies’ operations and consider including them in 
+their companies’ health and safety program. 
+Fire Protection 
+Fire is a chemical reaction that requires three elements to be present for the 
+reaction to take place and continue. The three elements are: 
+ Heat, or an ignition source 
+ Fuel  
+ Oxygen 
+These three elements typically are referred to as the “fire triangle.” Fire is the 
+result of the reaction between the fuel and oxygen in the air. Scientists 
+developed the concept of a fire triangle to aid in understanding of the cause 
+of fires and how they can be prevented and extinguished. Heat, fuel and 
+oxygen must combine in a precise way for a fire to start and continue to 
+burn. If one element of the fire triangle is not present or removed, fire will not 
+start or, if already burning, will extinguish. 
+Ignition sources can include any material, equipment or operation that emits 
+a spark or flame—including obvious items, such as torches, as well as less 
+obvious items, such as static electricity and grinding operations. Equipment 
+or components that radiate heat, such as kettles, catalytic converters and 
+mufflers, also can be ignition sources. 
+Fuel sources include combustible materials, such as wood, paper, trash and 
+clothing; flammable liquids, such as gasoline or solvents; and flammable 
+gases, such as propane or natural gas. 
+Oxygen in the fire triangle comes from the air in the atmosphere. Air 
+contains approximately 79 percent nitrogen and 21 percent oxygen. OSHA 
+describes a hazardous atmosphere as one which is oxygen-deficient 
+because it has less than 19.5 percent oxygen, or oxygen enriched because it 
+has greater than 23.5 percent oxygen. Either instance is regarded by OSHA 
+as an atmosphere immediately dangerous to life and health (IDLH) for 
+reasons unrelated to the presence of fire. Depending on the type of fuel 
+involved, fires can occur with much lower volume of oxygen present than 
+needed to support human respiration. 
+Every roofing project has all three of the fire triangle elements present in 
+abundance. The key to preventing fires is to keep heat and ignition sources 
+away from materials, equipment and structures that could act as fuel to 
+complete the fire triangle. 
+Fire Classifications 
+Fires are classified as A, B, C, D or K based on the type of substance that is 
+the fuel for the fire, as follows: 
+Class A—fires involving ordinary combustibles, such as paper, trash, 
+some plastics, wood and cloth. A rule of thumb is if it leaves an ash 
+behind, it is a Class A fire.  
+Class B—fires involving flammable gases or liquids, such as propane, oil 
+and gasoline 
+Class C—fires involving energized electrical components 
+Class D—fires involving metal. A rule of thumb is if the name of the metal 
+ends with the letters “um,” it is a Class D fire. Examples of this are 
+aluminum, magnesium, beryllium and sodium. Class D fires rarely occur in 
+the roofing industry. 
+Class K—fires involving vegetable or animal cooking oils or fats; common 
+in commercial cooking operations using deep fat fryers 
+Fire Extinguishers 
+There are different types of fire extinguishers designed to put out the 
+different classes of fire. Selecting the appropriate fire extinguisher is an 
+ 
+important consideration for a roofing contractor. The wrong extinguisher 
+actually may make a fire emergency worse. For example, failing to use a C
+rated extinguisher on energized electrical components may endanger 
+workers by causing the extinguishing material to be electrified by the 
+energized components that are on fire. C-rated fire extinguishers put out the 
+fire by using a chemical that does not conduct electricity.

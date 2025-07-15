@@ -781,4 +781,4 @@ C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.SemanticK
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.SemanticKernel.Core.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\System.Numerics.Tensors.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.SemanticKernel.Connectors.Google.dll
-C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\fireprotection.pdf
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\fire.txt

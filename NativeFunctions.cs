@@ -12,9 +12,11 @@ public class NativeFunctions
         _serviceProvider = serviceProvider;
     }
 
-    [KernelFunction]
+    [KernelFunction, Description("Reads the content of a file stored on disk by name. Useful when a user references a file in their question or something related to the file")]
     public async Task<string> RetrieveLocalFileAsync(string fileName, int maxSize = 5000)
     {
+        Console.WriteLine($"File function was invoked with: {fileName}");
+
         string basePath = AppContext.BaseDirectory;
         string filePath = Path.Combine(basePath, fileName);
         if (!File.Exists(filePath))
@@ -26,7 +28,7 @@ public class NativeFunctions
         return content.Length <= maxSize ? content : content.Substring(0, maxSize);
     }
     
-    [KernelFunction]
+    [KernelFunction, Description("This function gets all todo tasks")]
     public async Task<string> GetAllTodoTasksAsync()
     {
         using var scope = _serviceProvider.CreateScope();

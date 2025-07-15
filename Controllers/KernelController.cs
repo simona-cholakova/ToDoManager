@@ -30,9 +30,8 @@ namespace TodoApi.Controllers
                 ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
                 FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
             };
-
-            var res = await _chatCompletionService.GetChatMessageContentsAsync(chatHistory, settings, _kernel);
-            return Ok(res[0].Content);
+            var result = await _chatCompletionService.GetChatMessageContentsAsync(chatHistory, settings, _kernel);
+            return Ok(result[0].Content);
         }
     }
 }
