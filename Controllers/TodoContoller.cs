@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using TodoApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,10 +10,12 @@ namespace TodoApi.Controllers
     public class TodoController : ControllerBase
     {
         private readonly TodoContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public TodoController(TodoContext context)
+        public TodoController(TodoContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [HttpPost]
@@ -22,6 +25,7 @@ namespace TodoApi.Controllers
             {
                 // Do NOT assign Id here, ignore client-supplied Id
                 Name = todoItemDTO.Name,
+                UserId = _userManager.GetUserId(User),
                 IsComplete = todoItemDTO.IsComplete,
                 Secret = todoItemDTO.Secret
             };
@@ -109,16 +113,16 @@ namespace TodoApi.Controllers
 
         // GET: api/todo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetTodoItems()
+        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
         {
-            var todoItems = await _context.ToDoItems.ToListAsync();
+            var todoItems = await _context.ToDoItems.Where((Item) => Item.UserId == _userManager.GetUserId(User)).ToListAsync();
 
             if (todoItems == null || todoItems.Count == 0)
             {
                 return NotFound();
             }
 
-            return Ok(todoItems.Select(ItemToDTO));
+            return todoItems;
         }
 
         private bool TodoItemExists(long id)

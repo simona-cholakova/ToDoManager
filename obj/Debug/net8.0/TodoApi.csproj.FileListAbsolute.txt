@@ -769,3 +769,16 @@ C:\Users\adm-scholakova\Desktop\ToDoManager\obj\Debug\net8.0\refint\TodoApi.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\obj\Debug\net8.0\TodoApi.pdb
 C:\Users\adm-scholakova\Desktop\ToDoManager\obj\Debug\net8.0\TodoApi.genruntimeconfig.cache
 C:\Users\adm-scholakova\Desktop\ToDoManager\obj\Debug\net8.0\ref\TodoApi.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Azure.AI.OpenAI.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.Bcl.HashCode.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.Extensions.AI.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.Extensions.AI.Abstractions.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.Extensions.VectorData.Abstractions.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.SemanticKernel.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.SemanticKernel.Abstractions.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.SemanticKernel.Connectors.OpenAI.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.SemanticKernel.Core.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\System.Numerics.Tensors.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.SemanticKernel.Connectors.Google.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\fireprotection.pdf
