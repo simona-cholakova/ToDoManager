@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using System.ComponentModel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.Google;
 
 namespace TodoApi.Controllers
 {
@@ -10,48 +12,27 @@ namespace TodoApi.Controllers
     public class PromptController : ControllerBase
     {
         private readonly Kernel _kernel;
+        private readonly IChatCompletionService _chatCompletionService;
 
-        public PromptController(Kernel kernel)
+        public PromptController(Kernel kernel, IChatCompletionService chatService)
         {
             _kernel = kernel;
-
-            //register plugin correctly in v1.0.1
-            if (!_kernel.Plugins.Contains("NativeFunctions"))
-            {
-                _kernel.Plugins.AddFromObject(new NativeFunctions(), "NativeFunctions");
-            }
+            _chatCompletionService = chatService;
         }
 
         [HttpPost]
         public async Task<IActionResult> PromptText([FromBody] string inputText)
         {
-            string skPrompt = @"Read this text and answer accordingly to what it wants.
-                                Text to analyze: {{$userInput}}";
-
-            var summarizeFunction = _kernel.CreateFunctionFromPrompt(
-                skPrompt,
-                functionName: "SummarizeText"
-            );
-
-            var result = await _kernel.InvokeAsync(summarizeFunction, new KernelArguments
+            var chatHistory = new ChatHistory();
+            chatHistory.AddUserMessage(inputText);
+            var settings = new GeminiPromptExecutionSettings()
             {
-                ["userInput"] = inputText
-            });
+                ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
+                FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+            };
 
-            return Ok(result.ToString());
-        }
-
-        [HttpGet("from-file")]
-        public async Task<IActionResult> PromptFromFile([FromQuery] string fileName)
-        {
-            var fileFunc = _kernel.Plugins.GetFunction("NativeFunctions", "RetrieveLocalFileAsync");
-
-            var result = await _kernel.InvokeAsync(fileFunc, new KernelArguments
-            {
-                ["fileName"] = fileName
-            });
-
-            return Ok(result.ToString());
+            var res = await _chatCompletionService.GetChatMessageContentsAsync(chatHistory, settings, _kernel);
+            return Ok(res[0].Content);
         }
     }
 }

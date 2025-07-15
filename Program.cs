@@ -3,6 +3,7 @@ using TodoApi.Models;
 using Microsoft.SemanticKernel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.SemanticKernel.ChatCompletion;
 
 var builder = WebApplication.CreateBuilder(args);
 var kernelBuilder = Kernel.CreateBuilder();
@@ -23,14 +24,22 @@ builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<TodoContext>()
 builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("TodoContext")));
 
-kernelBuilder.Services.AddGoogleAIGeminiChatCompletion(
-    modelId: geminiModel,
-    apiKey: geminiKey
-);
+builder.Services.AddScoped(sp =>
+{
+    kernelBuilder.AddGoogleAIGeminiChatCompletion(
+        modelId: geminiModel,
+        apiKey: geminiKey);
+    
+    // Build the kernel from the builder
+    var kernel = kernelBuilder.Build();
 
-var kernel = kernelBuilder.Build();
-kernel.Plugins.AddFromObject(new NativeFunctions(), "NativeFunctions"); // Register here!
-builder.Services.AddSingleton(kernel);
+    // Register NativeFunctions with DI (passing IServiceProvider)
+    kernel.Plugins.AddFromObject(new NativeFunctions(sp), "NativeFunctions");
+
+    return kernel;
+});
+
+builder.Services.AddScoped(sp => {var kernel = sp.GetRequiredService<Kernel>();    return kernel.GetRequiredService<IChatCompletionService>();});
 
 
 var app = builder.Build();
