@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
 using Microsoft.SemanticKernel;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.SemanticKernel.ChatCompletion;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,21 +21,34 @@ builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<TodoContext>()
 
 // Replace in-memory DB with PostgreSQL
 builder.Services.AddDbContext<TodoContext>(opt =>
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("TodoContext")));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("TodoContext"), (o) => o.UseVector()
+    ));
 
 builder.Services.AddScoped(sp =>
 {
     kernelBuilder.AddGoogleAIGeminiChatCompletion(
         modelId: geminiModel,
         apiKey: geminiKey);
-    
-    // Build the kernel from the builder
+
     var kernel = kernelBuilder.Build();
 
-    // Register NativeFunctions with DI (passing IServiceProvider)
-    kernel.Plugins.AddFromObject(new NativeFunctions(sp), "NativeFunctions");
-
+    var dbContext = sp.GetRequiredService<TodoContext>();
+    kernel.Plugins.AddFromObject(new NativeFunctions(sp, dbContext), "NativeFunctions");
+    
     return kernel;
+});
+
+builder.Services.AddGoogleAIEmbeddingGenerator(
+    modelId: "text-embedding-004",
+    apiKey: "AIzaSyDMVewunSABShabhXiJcKNxI5Yi95OCzLU"
+);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy => policy.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
 });
 
 builder.Services.AddScoped(sp => {var kernel = sp.GetRequiredService<Kernel>();    
@@ -55,6 +67,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 

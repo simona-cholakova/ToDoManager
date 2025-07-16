@@ -6,26 +6,30 @@ using TodoApi.Models;
 public class NativeFunctions
 {
     private readonly IServiceProvider _serviceProvider;
+    private readonly TodoContext _context;
 
-    public NativeFunctions(IServiceProvider serviceProvider)
+    public NativeFunctions(IServiceProvider serviceProvider, TodoContext context)
     {
         _serviceProvider = serviceProvider;
+        _context = context;
     }
 
     [KernelFunction, Description("Reads the content of a file stored on disk by name. Useful when a user references a file in their question or something related to the file")]
-    public async Task<string> RetrieveLocalFileAsync(string fileName, int maxSize = 5000)
+    public async Task<string> RetrieveFileFromDatabaseAsync(string fileName, int maxSize = 5000)
     {
-        Console.WriteLine($"File function was invoked with: {fileName}");
+        Console.WriteLine($"Database file function was invoked with: {fileName}");
 
-        string basePath = AppContext.BaseDirectory;
-        string filePath = Path.Combine(basePath, fileName);
-        if (!File.Exists(filePath))
+        var file = await _context.FileRecords
+            .FirstOrDefaultAsync(f => f.FileName == fileName);
+
+        if (file == null)
         {
-            return $"File '{fileName}' not found.";
+            return $"File '{fileName}' not found in database.";
         }
 
-        string content = await File.ReadAllTextAsync(fileName);
-        return content.Length <= maxSize ? content : content.Substring(0, maxSize);
+        return file.Content.Length <= maxSize
+            ? file.Content
+            : file.Content.Substring(0, maxSize);
     }
     
     [KernelFunction, Description("This function gets all todo tasks")]

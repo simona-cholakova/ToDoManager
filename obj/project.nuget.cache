@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xL7ATFGX+74=",
+  "dgSpecHash": "bLtUy/mjvpM=",
   "success": true,
   "projectFilePath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
   "expectedPackageFiles": [
@@ -167,6 +167,7 @@
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\microsoft.semantickernel.abstractions\\1.60.0\\microsoft.semantickernel.abstractions.1.60.0.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\microsoft.semantickernel.connectors.google\\1.60.0-alpha\\microsoft.semantickernel.connectors.google.1.60.0-alpha.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\microsoft.semantickernel.connectors.openai\\1.0.1\\microsoft.semantickernel.connectors.openai.1.0.1.nupkg.sha512",
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\microsoft.semantickernel.connectors.pgvector\\1.60.0-preview\\microsoft.semantickernel.connectors.pgvector.1.60.0-preview.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\microsoft.semantickernel.core\\1.60.0\\microsoft.semantickernel.core.1.60.0.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\microsoft.visualstudio.threading.only\\17.13.61\\microsoft.visualstudio.threading.only.17.13.61.nupkg.sha512",
@@ -203,6 +204,9 @@
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\nuget.projectmodel\\6.11.0\\nuget.projectmodel.6.11.0.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\nuget.protocol\\6.11.0\\nuget.protocol.6.11.0.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\nuget.versioning\\6.11.0\\nuget.versioning.6.11.0.nupkg.sha512",
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\pdfpig\\0.1.11-alpha-20250715-016b7\\pdfpig.0.1.11-alpha-20250715-016b7.nupkg.sha512",
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\pgvector\\0.3.2\\pgvector.0.3.2.nupkg.sha512",
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\pgvector.entityframeworkcore\\0.2.2\\pgvector.entityframeworkcore.0.2.2.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\polly.core\\8.5.2\\polly.core.8.5.2.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\streamjsonrpc\\2.21.69\\streamjsonrpc.2.21.69.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\swashbuckle.aspnetcore\\6.6.2\\swashbuckle.aspnetcore.6.6.2.nupkg.sha512",

@@ -17,9 +17,12 @@
           "Microsoft.EntityFrameworkCore.Tools": "9.0.7",
           "Microsoft.SemanticKernel": "1.0.1",
           "Microsoft.SemanticKernel.Connectors.Google": "1.60.0-alpha",
+          "Microsoft.SemanticKernel.Connectors.PgVector": "1.60.0-preview",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "9.0.0",
           "NSwag.AspNetCore": "14.4.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
+          "PdfPig": "0.1.11-alpha-20250715-016b7",
+          "Pgvector.EntityFrameworkCore": "0.2.2",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "runtime": {
@@ -2251,6 +2254,21 @@
           }
         }
       },
+      "Microsoft.SemanticKernel.Connectors.PgVector/1.60.0-preview": {
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "9.6.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.7",
+          "Microsoft.Extensions.VectorData.Abstractions": "9.7.0",
+          "Npgsql": "9.0.3",
+          "Pgvector": "0.3.2"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.SemanticKernel.Connectors.PgVector.dll": {
+            "assemblyVersion": "1.60.0.0",
+            "fileVersion": "1.60.0.0"
+          }
+        }
+      },
       "Microsoft.SemanticKernel.Core/1.60.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "9.0.7",
@@ -2856,6 +2874,61 @@
           "lib/netstandard2.0/NuGet.Versioning.dll": {
             "assemblyVersion": "6.11.0.119",
             "fileVersion": "6.11.0.119"
+          }
+        }
+      },
+      "PdfPig/0.1.11-alpha-20250715-016b7": {
+        "runtime": {
+          "lib/net8.0/UglyToad.PdfPig.Core.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.DocumentLayoutAnalysis.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.Fonts.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.Package.dll": {
+            "assemblyVersion": "0.1.10.0",
+            "fileVersion": "0.1.10.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.Tokenization.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.Tokens.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          },
+          "lib/net8.0/UglyToad.PdfPig.dll": {
+            "assemblyVersion": "0.1.11.0",
+            "fileVersion": "0.1.11.0"
+          }
+        }
+      },
+      "Pgvector/0.3.2": {
+        "dependencies": {
+          "Npgsql": "9.0.3"
+        },
+        "runtime": {
+          "lib/net6.0/Pgvector.dll": {
+            "assemblyVersion": "0.3.2.0",
+            "fileVersion": "0.3.2.0"
+          }
+        }
+      },
+      "Pgvector.EntityFrameworkCore/0.2.2": {
+        "dependencies": {
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
+          "Pgvector": "0.3.2"
+        },
+        "runtime": {
+          "lib/net8.0/Pgvector.EntityFrameworkCore.dll": {
+            "assemblyVersion": "0.2.2.0",
+            "fileVersion": "0.2.2.0"
           }
         }
       },
@@ -4401,6 +4474,13 @@
       "path": "microsoft.semantickernel.connectors.openai/1.0.1",
       "hashPath": "microsoft.semantickernel.connectors.openai.1.0.1.nupkg.sha512"
     },
+    "Microsoft.SemanticKernel.Connectors.PgVector/1.60.0-preview": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uhCcK349+nrOh13DvxByVNj1h5F0GCoWPJKE4FMmsx7lMOIpX2HX8/lfuZTOuY2CVLe1w0rDWaOQH74aceldPw==",
+      "path": "microsoft.semantickernel.connectors.pgvector/1.60.0-preview",
+      "hashPath": "microsoft.semantickernel.connectors.pgvector.1.60.0-preview.nupkg.sha512"
+    },
     "Microsoft.SemanticKernel.Core/1.60.0": {
       "type": "package",
       "serviceable": true,
@@ -4652,6 +4732,27 @@
       "sha512": "sha512-v/GGlIj2dd7svplFmASWEueu62veKW0MrMtBaZ7QG8aJTSGv2yE+pgUGhXRcQ4nxNOEq/wLBrz1vkth/1SND7A==",
       "path": "nuget.versioning/6.11.0",
       "hashPath": "nuget.versioning.6.11.0.nupkg.sha512"
+    },
+    "PdfPig/0.1.11-alpha-20250715-016b7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Jc6Ppc4jL8a4LVcZyMVwR90Wq5we4MIvBOR4bOHt/zam/qoyLkH4vKdmWpG4/eFx2TW+sa/pBUduHswmYV9ZHA==",
+      "path": "pdfpig/0.1.11-alpha-20250715-016b7",
+      "hashPath": "pdfpig.0.1.11-alpha-20250715-016b7.nupkg.sha512"
+    },
+    "Pgvector/0.3.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-n7M5LuNejHUmtWky3zCbNO+tP1Gnjiuv9Qtu4LyvB1602dD8RiBxxCQp9jEjM0ZFDxAZF1oOWkNIkXw46KT00Q==",
+      "path": "pgvector/0.3.2",
+      "hashPath": "pgvector.0.3.2.nupkg.sha512"
+    },
+    "Pgvector.EntityFrameworkCore/0.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-U4C48O+f31y7lWlUY+fsZrOZAvzI8rCsQb/sEWF3MfGYX/153uQingO2/8YoXeLGx00Wl9na8zl89gehXtMbFg==",
+      "path": "pgvector.entityframeworkcore/0.2.2",
+      "hashPath": "pgvector.entityframeworkcore.0.2.2.nupkg.sha512"
     },
     "Polly.Core/8.5.2": {
       "type": "package",
