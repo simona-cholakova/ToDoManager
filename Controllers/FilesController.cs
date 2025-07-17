@@ -22,7 +22,7 @@ namespace TodoApi.Controllers
 
         public FilesController(
             TodoContext db,
-            UserManager<User> userManager, IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator) // Inject here
+            UserManager<User> userManager, IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator) 
         {
             _db = db;
             _userManager = userManager; // Store it
@@ -74,7 +74,7 @@ namespace TodoApi.Controllers
             {
                 FileName = newFile.FileName,
                 Content = content,
-                Embedding = new Vector(embedding.ToArray()), // Pgvector.Vector
+                Embedding = new Vector(embedding.ToArray()),
             };
 
             //if file already exists

@@ -8,7 +8,7 @@ public class FileRecord
     public string FileName { get; set; } = string.Empty;
     public string Content { get; set; } = string.Empty;
     
-    [Column(TypeName = "vector(786)")]
-    public Pgvector.Vector? Embedding { get; set; } //PostgreSQL vector extension
+    [Column(TypeName = "vector(768)")]
+    public Pgvector.Vector Embedding { get; set; } //PostgreSQL vector extension
 
 }

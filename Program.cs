@@ -53,13 +53,15 @@ builder.Services.AddGoogleAIEmbeddingGenerator(
     apiKey: "AIzaSyDMVewunSABShabhXiJcKNxI5Yi95OCzLU"
 );
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend",
-        policy => policy.WithOrigins("http://localhost:3000")
-            .AllowAnyHeader()
-            .AllowAnyMethod());
-});
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("AllowFrontend",
+//         policy => policy.WithOrigins("http://localhost:3000")
+//             .AllowAnyHeader()
+//             .AllowAnyMethod());
+// });
+builder.Services.AddCors();
+
 
 builder.Services.AddScoped(sp => {var kernel = sp.GetRequiredService<Kernel>();    
     return kernel.GetRequiredService<IChatCompletionService>();});
@@ -78,7 +80,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowFrontend");
+// app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 

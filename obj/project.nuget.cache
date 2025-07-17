@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bLtUy/mjvpM=",
+  "dgSpecHash": "YX0WTKcl0jo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
+  "projectFilePath": "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\TodoApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\aspire.hosting\\9.3.1\\aspire.hosting.9.3.1.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\aspire.hosting.postgresql\\9.3.1\\aspire.hosting.postgresql.9.3.1.nupkg.sha512",
@@ -257,9 +257,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "TodoApi depends on Microsoft.SemanticKernel (>= 1.0.0) but Microsoft.SemanticKernel 1.0.0 was not found. Microsoft.SemanticKernel 1.0.1 was resolved instead.",
-      "projectPath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
+      "projectPath": "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\TodoApi.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
+      "filePath": "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\TodoApi.csproj",
       "libraryId": "Microsoft.SemanticKernel",
       "targetGraphs": [
         "net8.0"

@@ -169,7 +169,8 @@ namespace TodoApi.Migrations
                         .HasColumnType("text");
 
                     b.Property<Vector>("Embedding")
-                        .HasColumnType("vector(786)");
+                        .IsRequired()
+                        .HasColumnType("vector(768)");
 
                     b.Property<string>("FileName")
                         .IsRequired()
