@@ -1,1 +1,25 @@
-﻿/bin/Debug/net8.0
+﻿# Ignore build and binary folders
+/bin/
+/obj/
+
+# Ignore Debug build outputs
+**/Debug/
+**/Release/
+
+# Ignore specific .NET build output (net8.0 or any target framework)
+**/net8.0/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache files
+.vscode/
+.vs/
+
+# Others (optional but common)
+*.log
+*.db
+*.DS_Store
