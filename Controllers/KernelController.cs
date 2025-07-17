@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
-using System.ComponentModel;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.Google;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.AI;
 using TodoApi.Models;
+
 
 namespace TodoApi.Controllers
 {
@@ -18,17 +19,20 @@ namespace TodoApi.Controllers
         private readonly IChatCompletionService _chatCompletionService;
         private readonly UserManager<User> _userManager;
         private readonly TodoContext _context;
+        private readonly IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator;
 
         public PromptController(
             Kernel kernel,
             IChatCompletionService chatService,
             UserManager<User> userManager,
-            TodoContext context)
+            TodoContext context,
+            IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator)
         {
             _kernel = kernel;
             _chatCompletionService = chatService;
             _userManager = userManager;
             _context = context;
+            _embeddingGenerator = embeddingGenerator;
         }
 
         [HttpPost]
@@ -36,7 +40,7 @@ namespace TodoApi.Controllers
         {
             var chatHistory = new ChatHistory();
             string userId = _userManager.GetUserId(User);
-
+            
             List<UserContextHistory> userChat = await _context.UserContextHistory
                 .Where(h => h.userId == userId)
                 .OrderByDescending(h => h.Id)

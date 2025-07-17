@@ -2,7 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
 using Microsoft.SemanticKernel;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.AI;
 using Microsoft.SemanticKernel.ChatCompletion;
+using TodoApi.Plugins;
+using WebApplication2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var kernelBuilder = Kernel.CreateBuilder();
@@ -33,10 +36,17 @@ builder.Services.AddScoped(sp =>
     var kernel = kernelBuilder.Build();
 
     var dbContext = sp.GetRequiredService<TodoContext>();
-    kernel.Plugins.AddFromObject(new NativeFunctions(sp, dbContext), "NativeFunctions");
+    var embeddingGenerator = sp.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();
+
+    var filePlugin = new FilePlugin(sp, dbContext, embeddingGenerator);
+    var todoPlugin = new ToDoPlugin(sp,  dbContext, embeddingGenerator, new TodoService(dbContext, new HttpContextAccessor()));
+    
+    kernel.Plugins.AddFromObject(filePlugin, "FilePlugin");
+    kernel.Plugins.AddFromObject(todoPlugin, "ToDoPlugin");
     
     return kernel;
 });
+
 
 builder.Services.AddGoogleAIEmbeddingGenerator(
     modelId: "text-embedding-004",

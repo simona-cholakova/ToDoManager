@@ -24,9 +24,7 @@ namespace TodoApi.Controllers
             var todoItem = new TodoItem
             {
                 Name = todoItemDTO.Name,
-                UserId = _userManager.GetUserId(User),
-                IsComplete = todoItemDTO.IsComplete,
-                Secret = todoItemDTO.Secret
+                UserId = _userManager.GetUserId(User)
             };
 
             _context.ToDoItems.Add(todoItem);
@@ -86,8 +84,6 @@ namespace TodoApi.Controllers
 
             // Update entity fields from DTO
             todoItem.Name = todoItemDTO.Name;
-            todoItem.IsComplete = todoItemDTO.IsComplete;
-            todoItem.Secret = todoItemDTO.Secret;
 
             _context.Entry(todoItem).State = EntityState.Modified;
 
@@ -133,9 +129,7 @@ namespace TodoApi.Controllers
             new TodoItemDTO
             {
                 Id = item.Id,
-                Name = item.Name,
-                IsComplete = item.IsComplete,
-                Secret = item.Secret
+                Name = item.Name
             };
     }
 }
