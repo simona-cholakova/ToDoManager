@@ -25,9 +25,10 @@ namespace TodoApi.Plugins
         }
         
 
-        [KernelFunction, Description("Searches if the user's prompt can be found in the files from the database")]
+        [KernelFunction, Description("Searches if the user's prompt can be found in the files from the database. Always read from the most similar file.")]
         public async Task<string> SearchFilesByMeaningAsync(string query)
         {
+            
             Console.WriteLine("Function invoked yay!");
 
             var embedding = await _embeddingGenerator.GenerateAsync(query);
@@ -52,7 +53,7 @@ namespace TodoApi.Plugins
 
             if (matchingFiles.Count == 0)
                 return "No relevant files found.";
-
+            
             return string.Join("\n\n", matchingFiles.Select(f =>
                 $"From {f.FileName}:\n{f.Content}"
             ));

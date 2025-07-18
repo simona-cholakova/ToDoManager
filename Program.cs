@@ -7,6 +7,7 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using TodoApi.Plugins;
 using WebApplication2.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 var kernelBuilder = Kernel.CreateBuilder();
 
@@ -18,9 +19,21 @@ var geminiModel = builder.Configuration["Gemini:ModelId"];
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
-builder.Services.AddAuthorization();
-builder.Services.AddIdentityCore<User>().AddEntityFrameworkStores<TodoContext>().AddApiEndpoints();
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = IdentityConstants.BearerScheme;
+        options.DefaultChallengeScheme = IdentityConstants.BearerScheme;
+        options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+    })
+    .AddCookie(IdentityConstants.ApplicationScheme)
+    .AddBearerToken(IdentityConstants.BearerScheme);
+
+builder.Services.AddAuthorizationBuilder();
+builder.Services.AddDbContext<TodoContext>(x => x.UseNpgsql("DataSource=app.db"));
+builder.Services.AddIdentityCore<User>()
+    .AddEntityFrameworkStores<TodoContext>()
+    .AddApiEndpoints();
 
 // Replace in-memory DB with PostgreSQL
 builder.Services.AddDbContext<TodoContext>(opt =>
@@ -53,15 +66,17 @@ builder.Services.AddGoogleAIEmbeddingGenerator(
     apiKey: "AIzaSyDMVewunSABShabhXiJcKNxI5Yi95OCzLU"
 );
 
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("AllowFrontend",
-//         policy => policy.WithOrigins("http://localhost:3000")
-//             .AllowAnyHeader()
-//             .AllowAnyMethod());
-// });
-builder.Services.AddCors();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5000")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
+});
 
 builder.Services.AddScoped(sp => {var kernel = sp.GetRequiredService<Kernel>();    
     return kernel.GetRequiredService<IChatCompletionService>();});
@@ -80,14 +95,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// app.UseCors("AllowFrontend");
-
-app.UseAuthorization();
+app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 
-app.MapControllers();
+app.UseAuthorization();
 
 app.MapIdentityApi<User>();
+
+app.MapControllers();
 
 app.Run();

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.Google;
@@ -40,6 +42,7 @@ namespace TodoApi.Controllers
 
         }
         
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PromptText([FromBody] string inputText)
         {
@@ -80,10 +83,10 @@ namespace TodoApi.Controllers
             Console.WriteLine($"Top match: {topMatch?.File.FileName}, Similarity: {topMatch?.Similarity}");
 
             //Inject the top relevant file (if relevant)
-            if (topMatch != null && topMatch.Similarity > 0.7) // adjust threshold if needed
+            if (topMatch != null) // adjust threshold if needed
             {
                 chatHistory.AddSystemMessage(
-                    $"Use the following file to assist in your answer. " +
+                    $"Always firstly try to use the following file to assist in your answer. " +
                     $"File: {topMatch.File.FileName}\n\n{topMatch.File.Content}"
                 );
             }
@@ -110,6 +113,7 @@ namespace TodoApi.Controllers
             await _context.SaveChangesAsync();
             return Ok(result[0].Content);
         }
+        
         private static float CosineSimilarity(float[] vectorA, float[] vectorB)
         {
             if (vectorA.Length != vectorB.Length) return 0f;

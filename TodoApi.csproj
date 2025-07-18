@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.3.1" />
+    <PackageReference Include="BearerAuthentication" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7">
@@ -15,6 +16,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

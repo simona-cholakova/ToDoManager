@@ -215,6 +215,19 @@
           }
         }
       },
+      "BearerAuthentication/1.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Mvc": "5.2.3",
+          "Microsoft.AspNet.WebApi": "5.2.3"
+        },
+        "compile": {
+          "lib/net461/BearerAuthentication.dll": {}
+        },
+        "runtime": {
+          "lib/net461/BearerAuthentication.dll": {}
+        }
+      },
       "Fractions/7.3.0": {
         "type": "package",
         "compile": {
@@ -1050,6 +1063,125 @@
           }
         }
       },
+      "Microsoft.AspNet.Mvc/5.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)",
+          "Microsoft.AspNet.WebPages": "[3.2.3, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNet.Razor/3.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNet.WebApi/5.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.WebHost": "[5.2.3, 5.3.0)"
+        }
+      },
+      "Microsoft.AspNet.WebApi.Client/5.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.4"
+        },
+        "compile": {
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNet.WebApi.Core/5.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Client": "5.2.3"
+        },
+        "compile": {
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Core": "[5.2.3, 5.3.0)"
+        },
+        "compile": {
+          "lib/net45/System.Web.Http.WebHost.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/System.Web.Http.WebHost.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNet.WebPages/3.2.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)",
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/8.0.0": {
         "type": "package",
         "compile": {
@@ -1776,6 +1908,22 @@
           }
         }
       },
+      "Microsoft.Data.Sqlite.Core/9.0.7": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.10"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.DiaSymReader/2.0.0": {
         "type": "package",
         "compile": {
@@ -1920,6 +2068,48 @@
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Sqlite/9.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "9.0.7",
+          "Microsoft.Extensions.Caching.Memory": "9.0.7",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.7",
+          "Microsoft.Extensions.DependencyModel": "9.0.7",
+          "Microsoft.Extensions.Logging": "9.0.7",
+          "SQLitePCLRaw.bundle_e_sqlite3": "2.1.10",
+          "SQLitePCLRaw.core": "2.1.10",
+          "System.Text.Json": "9.0.7"
+        },
+        "compile": {
+          "lib/net8.0/_._": {}
+        },
+        "runtime": {
+          "lib/net8.0/_._": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Sqlite.Core/9.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Data.Sqlite.Core": "9.0.7",
+          "Microsoft.EntityFrameworkCore.Relational": "9.0.7",
+          "Microsoft.Extensions.Caching.Memory": "9.0.7",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.7",
+          "Microsoft.Extensions.DependencyModel": "9.0.7",
+          "Microsoft.Extensions.Logging": "9.0.7",
+          "SQLitePCLRaw.core": "2.1.10",
+          "System.Text.Json": "9.0.7"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {
             "related": ".xml"
           }
         }
@@ -3413,6 +3603,15 @@
           }
         }
       },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        }
+      },
       "Mono.TextTemplating/3.0.0": {
         "type": "package",
         "dependencies": {
@@ -3880,6 +4079,141 @@
           "lib/net8.0/Polly.Core.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.lib.e_sqlite3": "2.1.10",
+          "SQLitePCLRaw.provider.e_sqlite3": "2.1.10"
+        },
+        "compile": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {}
+        }
+      },
+      "SQLitePCLRaw.core/2.1.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {}
+        }
+      },
+      "SQLitePCLRaw.lib.e_sqlite3/2.1.10": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "build": {
+          "buildTransitive/net8.0/SQLitePCLRaw.lib.e_sqlite3.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/browser-wasm/nativeassets/net8.0/e_sqlite3.a": {
+            "assetType": "native",
+            "rid": "browser-wasm"
+          },
+          "runtimes/linux-arm/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-arm"
+          },
+          "runtimes/linux-arm64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-arm64"
+          },
+          "runtimes/linux-armel/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-armel"
+          },
+          "runtimes/linux-mips64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-mips64"
+          },
+          "runtimes/linux-musl-arm/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-musl-arm"
+          },
+          "runtimes/linux-musl-arm64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-musl-arm64"
+          },
+          "runtimes/linux-musl-s390x/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-musl-s390x"
+          },
+          "runtimes/linux-musl-x64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-musl-x64"
+          },
+          "runtimes/linux-ppc64le/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-ppc64le"
+          },
+          "runtimes/linux-s390x/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-s390x"
+          },
+          "runtimes/linux-x64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/linux-x86/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-x86"
+          },
+          "runtimes/maccatalyst-arm64/native/libe_sqlite3.dylib": {
+            "assetType": "native",
+            "rid": "maccatalyst-arm64"
+          },
+          "runtimes/maccatalyst-x64/native/libe_sqlite3.dylib": {
+            "assetType": "native",
+            "rid": "maccatalyst-x64"
+          },
+          "runtimes/osx-arm64/native/libe_sqlite3.dylib": {
+            "assetType": "native",
+            "rid": "osx-arm64"
+          },
+          "runtimes/osx-x64/native/libe_sqlite3.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-arm/native/e_sqlite3.dll": {
+            "assetType": "native",
+            "rid": "win-arm"
+          },
+          "runtimes/win-arm64/native/e_sqlite3.dll": {
+            "assetType": "native",
+            "rid": "win-arm64"
+          },
+          "runtimes/win-x64/native/e_sqlite3.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/e_sqlite3.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
+      "SQLitePCLRaw.provider.e_sqlite3/2.1.10": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.10"
+        },
+        "compile": {
+          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
       "StreamJsonRpc/2.21.69": {
@@ -4795,6 +5129,18 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "BearerAuthentication/1.0.1": {
+      "sha512": "Wtm4RzOZJGmdnbGyBSAzDojAU0tGrf7BBBBgPHevjvYo42UBi2eCAMJjfJ4RqYyB/U+QL6E30ulLuciocaCU4w==",
+      "type": "package",
+      "path": "bearerauthentication/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bearerauthentication.1.0.1.nupkg.sha512",
+        "bearerauthentication.nuspec",
+        "lib/net461/BearerAuthentication.dll"
       ]
     },
     "Fractions/7.3.0": {
@@ -5913,6 +6259,108 @@
         "lib/netstandard2.0/MessagePack.Annotations.xml",
         "messagepack.annotations.2.5.192.nupkg.sha512",
         "messagepack.annotations.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Mvc/5.2.3": {
+      "sha512": "i8jZf5QrbcFmjiYWRD7o7qTak/oXKxV80MgP4cZ33A8GC0RBtBIdZ1VHaloGUg+qsHUz5rVkGpwenM+ugDz5PA==",
+      "type": "package",
+      "path": "microsoft.aspnet.mvc/5.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Web.config.install.xdt",
+        "Content/Web.config.uninstall.xdt",
+        "lib/net45/System.Web.Mvc.dll",
+        "lib/net45/System.Web.Mvc.xml",
+        "microsoft.aspnet.mvc.5.2.3.nupkg.sha512",
+        "microsoft.aspnet.mvc.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Razor/3.2.3": {
+      "sha512": "leta+Q73O7+pR8ThTqXmwaNMSqwZQQ3BHfpUHd8S1XaUWe1jRVLitMHqo1AmY7wPNLyankPA1beiUKEGj8Q3Dw==",
+      "type": "package",
+      "path": "microsoft.aspnet.razor/3.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/System.Web.Razor.dll",
+        "lib/net45/System.Web.Razor.xml",
+        "microsoft.aspnet.razor.3.2.3.nupkg.sha512",
+        "microsoft.aspnet.razor.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.WebApi/5.2.3": {
+      "sha512": "mGBfSy61+2dIdPwgguW8EaCVsbYTwwVHeCc/pVq1PhlZS87ColgJ++Hve40TrX6Dtqde0fo9M1Tt19rXlHC5GA==",
+      "type": "package",
+      "path": "microsoft.aspnet.webapi/5.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "microsoft.aspnet.webapi.5.2.3.nupkg.sha512",
+        "microsoft.aspnet.webapi.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.WebApi.Client/5.2.3": {
+      "sha512": "3kiI8peSXbXHDDrRuo+QaX0iCEVRe0nvn2dBDRw656uPX32UalbBlSIDUDlJxu05eau4tnuhsikiUuugvvoUoQ==",
+      "type": "package",
+      "path": "microsoft.aspnet.webapi.client/5.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/System.Net.Http.Formatting.dll",
+        "lib/net45/System.Net.Http.Formatting.xml",
+        "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.dll",
+        "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.xml",
+        "microsoft.aspnet.webapi.client.5.2.3.nupkg.sha512",
+        "microsoft.aspnet.webapi.client.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.WebApi.Core/5.2.3": {
+      "sha512": "o90QYlRV8VKR1S7+EcJw9w8WSyVFLl+IIzN8ILZ+n2t6rsc/KS8kBxRzA7wCFPRUHhebCfLqilBk39phvanx3g==",
+      "type": "package",
+      "path": "microsoft.aspnet.webapi.core/5.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/web.config.transform",
+        "lib/net45/System.Web.Http.dll",
+        "lib/net45/System.Web.Http.xml",
+        "microsoft.aspnet.webapi.core.5.2.3.nupkg.sha512",
+        "microsoft.aspnet.webapi.core.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
+      "sha512": "bhm4/BKdS3t6nK2R3NjCpxulcwtMFiHqVBDLuN3W5So1PhZfE+RBs7eVazGOhsEKCk7PoSmiSnl9DG0cpyfHtA==",
+      "type": "package",
+      "path": "microsoft.aspnet.webapi.webhost/5.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/System.Web.Http.WebHost.dll",
+        "lib/net45/System.Web.Http.WebHost.xml",
+        "microsoft.aspnet.webapi.webhost.5.2.3.nupkg.sha512",
+        "microsoft.aspnet.webapi.webhost.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.WebPages/3.2.3": {
+      "sha512": "zbtxBERla5RE/mhftwbrXOzc0r6lh8WcnjpGW7QQe+PvSDDx1BgsTUGzfCXO/vJznHNpY5oCSYLt8Q5vUu7F0g==",
+      "type": "package",
+      "path": "microsoft.aspnet.webpages/3.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Web.config.install.xdt",
+        "Content/Web.config.uninstall.xdt",
+        "lib/net45/System.Web.Helpers.dll",
+        "lib/net45/System.Web.Helpers.xml",
+        "lib/net45/System.Web.WebPages.Deployment.dll",
+        "lib/net45/System.Web.WebPages.Deployment.xml",
+        "lib/net45/System.Web.WebPages.Razor.dll",
+        "lib/net45/System.Web.WebPages.Razor.xml",
+        "lib/net45/System.Web.WebPages.dll",
+        "lib/net45/System.Web.WebPages.xml",
+        "microsoft.aspnet.webpages.3.2.3.nupkg.sha512",
+        "microsoft.aspnet.webpages.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/8.0.0": {
@@ -7390,6 +7838,25 @@
         "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll"
       ]
     },
+    "Microsoft.Data.Sqlite.Core/9.0.7": {
+      "sha512": "yjlU0Wu0tAexFPlo/bbkYFMWyEkVHqr5AONyh91YJ4KH+hys+eAzHQxd14aZwtQOgpJ5s9r3QL9+tVJww8w69Q==",
+      "type": "package",
+      "path": "microsoft.data.sqlite.core/9.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net6.0/Microsoft.Data.Sqlite.dll",
+        "lib/net6.0/Microsoft.Data.Sqlite.xml",
+        "lib/net8.0/Microsoft.Data.Sqlite.dll",
+        "lib/net8.0/Microsoft.Data.Sqlite.xml",
+        "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
+        "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
+        "microsoft.data.sqlite.core.9.0.7.nupkg.sha512",
+        "microsoft.data.sqlite.core.nuspec"
+      ]
+    },
     "Microsoft.DiaSymReader/2.0.0": {
       "sha512": "QcZrCETsBJqy/vQpFtJc+jSXQ0K5sucQ6NUFbTNVHD4vfZZOwjZ/3sBzczkC4DityhD3AVO/+K/+9ioLs1AgRA==",
       "type": "package",
@@ -7509,6 +7976,35 @@
         "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.xml",
         "microsoft.entityframeworkcore.relational.9.0.7.nupkg.sha512",
         "microsoft.entityframeworkcore.relational.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Sqlite/9.0.7": {
+      "sha512": "87dAv0nX4rBIa29L7sZdUZ1FE4NDn9J51g6WJ+j5dTUQwNEg52YDEmo+/TxBtRnBSAca9boo80k8F7+LzUo2qQ==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.sqlite/9.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net8.0/_._",
+        "microsoft.entityframeworkcore.sqlite.9.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlite.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Sqlite.Core/9.0.7": {
+      "sha512": "DLB8n5Z7U8+xCkh+NSrvOlylCmveDg5RpPdqBftq5nU8Yt3vIdBg0X/YkESGDBWUL9h0vxuhgH2aqXL3FYz5tQ==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.sqlite.core/9.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.xml",
+        "microsoft.entityframeworkcore.sqlite.core.9.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlite.core.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.SqlServer/9.0.7": {
@@ -9752,6 +10248,18 @@
         "microsoft.visualstudio.web.codegenerators.mvc.nuspec"
       ]
     },
+    "Microsoft.Web.Infrastructure/1.0.0": {
+      "sha512": "FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
+      "type": "package",
+      "path": "microsoft.web.infrastructure/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Microsoft.Web.Infrastructure.dll",
+        "microsoft.web.infrastructure.1.0.0.nupkg.sha512",
+        "microsoft.web.infrastructure.nuspec"
+      ]
+    },
     "Mono.TextTemplating/3.0.0": {
       "sha512": "YqueG52R/Xej4VVbKuRIodjiAhV0HR/XVbLbNrJhCZnzjnSjgMJ/dCdV0akQQxavX6hp/LC6rqLGLcXeQYU7XA==",
       "type": "package",
@@ -10365,6 +10873,98 @@
         "package-readme.md",
         "polly.core.8.5.2.nupkg.sha512",
         "polly.core.nuspec"
+      ]
+    },
+    "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
+      "sha512": "UxWuisvZ3uVcVOLJQv7urM/JiQH+v3TmaJc1BLKl5Dxfm/nTzTUrqswCqg/INiYLi61AXnHo1M1JPmPqqLnAdg==",
+      "type": "package",
+      "path": "sqlitepclraw.bundle_e_sqlite3/2.1.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid90/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net461/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net6.0-android31.0/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net6.0-android31.0/SQLitePCLRaw.batteries_v2.xml",
+        "lib/net6.0-ios14.0/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net6.0-ios14.2/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net6.0-tvos10.0/SQLitePCLRaw.batteries_v2.dll",
+        "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll",
+        "lib/xamarinios10/SQLitePCLRaw.batteries_v2.dll",
+        "sqlitepclraw.bundle_e_sqlite3.2.1.10.nupkg.sha512",
+        "sqlitepclraw.bundle_e_sqlite3.nuspec"
+      ]
+    },
+    "SQLitePCLRaw.core/2.1.10": {
+      "sha512": "Ii8JCbC7oiVclaE/mbDEK000EFIJ+ShRPwAvvV89GOZhQ+ZLtlnSWl6ksCNMKu/VGXA4Nfi2B7LhN/QFN9oBcw==",
+      "type": "package",
+      "path": "sqlitepclraw.core/2.1.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/SQLitePCLRaw.core.dll",
+        "sqlitepclraw.core.2.1.10.nupkg.sha512",
+        "sqlitepclraw.core.nuspec"
+      ]
+    },
+    "SQLitePCLRaw.lib.e_sqlite3/2.1.10": {
+      "sha512": "mAr69tDbnf3QJpRy2nJz8Qdpebdil00fvycyByR58Cn9eARvR+UiG2Vzsp+4q1tV3ikwiYIjlXCQFc12GfebbA==",
+      "type": "package",
+      "path": "sqlitepclraw.lib.e_sqlite3/2.1.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "buildTransitive/net461/SQLitePCLRaw.lib.e_sqlite3.targets",
+        "buildTransitive/net6.0/SQLitePCLRaw.lib.e_sqlite3.targets",
+        "buildTransitive/net7.0/SQLitePCLRaw.lib.e_sqlite3.targets",
+        "buildTransitive/net8.0/SQLitePCLRaw.lib.e_sqlite3.targets",
+        "buildTransitive/net9.0/SQLitePCLRaw.lib.e_sqlite3.targets",
+        "lib/net461/_._",
+        "lib/netstandard2.0/_._",
+        "runtimes/browser-wasm/nativeassets/net6.0/e_sqlite3.a",
+        "runtimes/browser-wasm/nativeassets/net7.0/e_sqlite3.a",
+        "runtimes/browser-wasm/nativeassets/net8.0/e_sqlite3.a",
+        "runtimes/browser-wasm/nativeassets/net9.0/e_sqlite3.a",
+        "runtimes/linux-arm/native/libe_sqlite3.so",
+        "runtimes/linux-arm64/native/libe_sqlite3.so",
+        "runtimes/linux-armel/native/libe_sqlite3.so",
+        "runtimes/linux-mips64/native/libe_sqlite3.so",
+        "runtimes/linux-musl-arm/native/libe_sqlite3.so",
+        "runtimes/linux-musl-arm64/native/libe_sqlite3.so",
+        "runtimes/linux-musl-s390x/native/libe_sqlite3.so",
+        "runtimes/linux-musl-x64/native/libe_sqlite3.so",
+        "runtimes/linux-ppc64le/native/libe_sqlite3.so",
+        "runtimes/linux-s390x/native/libe_sqlite3.so",
+        "runtimes/linux-x64/native/libe_sqlite3.so",
+        "runtimes/linux-x86/native/libe_sqlite3.so",
+        "runtimes/maccatalyst-arm64/native/libe_sqlite3.dylib",
+        "runtimes/maccatalyst-x64/native/libe_sqlite3.dylib",
+        "runtimes/osx-arm64/native/libe_sqlite3.dylib",
+        "runtimes/osx-x64/native/libe_sqlite3.dylib",
+        "runtimes/win-arm/native/e_sqlite3.dll",
+        "runtimes/win-arm64/native/e_sqlite3.dll",
+        "runtimes/win-x64/native/e_sqlite3.dll",
+        "runtimes/win-x86/native/e_sqlite3.dll",
+        "runtimes/win10-arm/nativeassets/uap10.0/e_sqlite3.dll",
+        "runtimes/win10-arm64/nativeassets/uap10.0/e_sqlite3.dll",
+        "runtimes/win10-x64/nativeassets/uap10.0/e_sqlite3.dll",
+        "runtimes/win10-x86/nativeassets/uap10.0/e_sqlite3.dll",
+        "sqlitepclraw.lib.e_sqlite3.2.1.10.nupkg.sha512",
+        "sqlitepclraw.lib.e_sqlite3.nuspec"
+      ]
+    },
+    "SQLitePCLRaw.provider.e_sqlite3/2.1.10": {
+      "sha512": "uZVTi02C1SxqzgT0HqTWatIbWGb40iIkfc3FpFCpE/r7g6K0PqzDUeefL6P6HPhDtc6BacN3yQysfzP7ks+wSQ==",
+      "type": "package",
+      "path": "sqlitepclraw.provider.e_sqlite3/2.1.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll",
+        "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll",
+        "lib/netstandard2.0/SQLitePCLRaw.provider.e_sqlite3.dll",
+        "sqlitepclraw.provider.e_sqlite3.2.1.10.nupkg.sha512",
+        "sqlitepclraw.provider.e_sqlite3.nuspec"
       ]
     },
     "StreamJsonRpc/2.21.69": {
@@ -11854,11 +12454,13 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Aspire.Hosting.PostgreSQL >= 9.3.1",
+      "BearerAuthentication >= 1.0.1",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 8.0.0",
       "Microsoft.EntityFrameworkCore >= 9.0.7",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.7",
       "Microsoft.EntityFrameworkCore.InMemory >= 9.0.7",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.7",
+      "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.7",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.7",
       "Microsoft.SemanticKernel >= 1.0.0",
       "Microsoft.SemanticKernel.Connectors.Google >= 1.60.0-alpha",
@@ -11878,11 +12480,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\TodoApi.csproj",
+      "projectUniqueName": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
       "projectName": "TodoApi",
-      "projectPath": "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\TodoApi.csproj",
+      "projectPath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
       "packagesPath": "C:\\Users\\adm-scholakova\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\obj\\",
+      "outputPath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -11925,6 +12527,10 @@
             "target": "Package",
             "version": "[9.3.1, )"
           },
+          "BearerAuthentication": {
+            "target": "Package",
+            "version": "[1.0.1, )"
+          },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.0, )"
@@ -11944,6 +12550,10 @@
             "version": "[9.0.7, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
+            "target": "Package",
+            "version": "[9.0.7, )"
+          },
+          "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
             "version": "[9.0.7, )"
           },
@@ -12020,6 +12630,86 @@
       "warningLevel": 1,
       "message": "TodoApi depends on Microsoft.SemanticKernel (>= 1.0.0) but Microsoft.SemanticKernel 1.0.0 was not found. Microsoft.SemanticKernel 1.0.1 was resolved instead.",
       "libraryId": "Microsoft.SemanticKernel",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BearerAuthentication 1.0.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "BearerAuthentication",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Mvc 5.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Mvc",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Razor 3.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Razor",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.WebApi.Client 5.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.WebApi.Client",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.WebApi.Core 5.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.WebApi.Core",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.WebApi.WebHost 5.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.WebApi.WebHost",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.WebPages 3.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.WebPages",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Web.Infrastructure 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Web.Infrastructure",
       "targetGraphs": [
         "net8.0"
       ]

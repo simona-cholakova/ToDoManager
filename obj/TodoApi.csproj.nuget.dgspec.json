@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\TodoApi.csproj": {}
+    "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\TodoApi.csproj": {
+    "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\TodoApi.csproj",
+        "projectUniqueName": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
         "projectName": "TodoApi",
-        "projectPath": "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\TodoApi.csproj",
+        "projectPath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
         "packagesPath": "C:\\Users\\adm-scholakova\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adm-scholakova\\Desktop\\AIQueryManager\\ToDoManager\\obj\\",
+        "outputPath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[9.3.1, )"
             },
+            "BearerAuthentication": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.0, )"
@@ -73,6 +77,10 @@
               "version": "[9.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[9.0.7, )"
             },
