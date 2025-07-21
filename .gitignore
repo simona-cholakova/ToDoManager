@@ -23,3 +23,5 @@
 *.log
 *.db
 *.DS_Store
+
+appsettings.Secrets.json

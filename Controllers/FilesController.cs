@@ -31,64 +31,70 @@ namespace TodoApi.Controllers
 
 
         [HttpPost("add-file")]
-        public async Task<IActionResult> AddFile(IFormFile newFile)
+public async Task<IActionResult> AddFile(IFormFile newFile)
+{
+    if (newFile == null || string.IsNullOrWhiteSpace(newFile.FileName))
+        return BadRequest("Invalid file data.");
+
+    // Check if file exists
+    var exists = await _db.FileRecords.AnyAsync(f => f.FileName == newFile.FileName);
+    if (exists)
+        return BadRequest($"File '{newFile.FileName}' already exists.");
+
+    var fileRecord = new FileRecord
+    {
+        FileName = newFile.FileName,
+        Content = string.Empty // Optionally populate later
+    };
+
+    var fileChunks = new List<FileChunk>();
+
+    if (Path.GetExtension(newFile.FileName).Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+    {
+        using var pdf = PdfDocument.Open(newFile.OpenReadStream());
+        var fullBuilder = new StringBuilder();
+
+        foreach (Page page in pdf.GetPages())
         {
-            if (newFile == null || string.IsNullOrWhiteSpace(newFile.FileName))
+            string pageText = page.Text;
+            fullBuilder.AppendLine(pageText);
+
+            var embedding = await _embeddingGenerator.GenerateAsync(pageText);
+            fileChunks.Add(new FileChunk
             {
-                return BadRequest("Invalid file data.");
-            }
-
-            string content;
-
-            //if it is PDF, extract text using PdfPig
-            if (Path.GetExtension(newFile.FileName).Equals(".pdf", StringComparison.OrdinalIgnoreCase))
-            {
-                using var pdf = PdfDocument.Open(newFile.OpenReadStream());
-                var builder = new StringBuilder();
-
-                foreach (Page page in pdf.GetPages())
-                {
-                    builder.AppendLine(page.Text);
-                }
-
-                content = builder.ToString();
-            }
-            else
-            {
-                //not PDF
-                var builder = new StringBuilder();
-                using (var reader = new StreamReader(newFile.OpenReadStream()))
-                {
-                    while (reader.Peek() >= 0)
-                        builder.AppendLine(await reader.ReadLineAsync());
-                }
-
-                content = builder.ToString();
-            }
-
-            //embed
-            var embeddingMemory = await _embeddingGenerator.GenerateAsync(content);
-            ReadOnlyMemory<float> embedding = embeddingMemory.Vector;
-
-            var file = new FileRecord
-            {
-                FileName = newFile.FileName,
-                Content = content,
-                Embedding = new Vector(embedding.ToArray()),
-            };
-
-            //if file already exists
-            var existing = await _db.FileRecords.FirstOrDefaultAsync(f => f.FileName == file.FileName);
-            if (existing != null)
-            {
-                return BadRequest($"File '{file.FileName}' already exists.");
-            }
-
-            _db.FileRecords.Add(file);
-            await _db.SaveChangesAsync();
-
-            return Ok($"File '{file.FileName}' was added successfully.");
+                FileRecord = fileRecord,
+                PageNumber = page.Number,
+                Content = pageText,
+                Embedding = new Vector(embedding.Vector.ToArray())
+            });
         }
+
+        fileRecord.Content = fullBuilder.ToString();
+    }
+    else
+    {
+        using var reader = new StreamReader(newFile.OpenReadStream());
+        var text = await reader.ReadToEndAsync();
+
+        var embedding = await _embeddingGenerator.GenerateAsync(text);
+        fileChunks.Add(new FileChunk
+        {
+            FileRecord = fileRecord,
+            PageNumber = 1,
+            Content = text,
+            Embedding = new Vector(embedding.Vector.ToArray())
+        });
+
+        fileRecord.Content = text;
+    }
+
+    await _db.FileRecords.AddAsync(fileRecord);
+    await _db.FileChunks.AddRangeAsync(fileChunks);
+    await _db.SaveChangesAsync();
+
+    return Ok($"File '{newFile.FileName}' uploaded with {fileChunks.Count} chunk(s).");
+}
+
 
         [HttpGet("get-file")]
         public async Task<IActionResult> GetFile([FromQuery] string fileName)

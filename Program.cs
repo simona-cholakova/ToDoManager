@@ -4,105 +4,112 @@ using Microsoft.SemanticKernel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.AI;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Embeddings;
 using TodoApi.Plugins;
 using WebApplication2.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
-var kernelBuilder = Kernel.CreateBuilder();
 
-// Create SK kernel
-var geminiKey = builder.Configuration["Gemini:ApiKey"];
-var geminiModel = builder.Configuration["Gemini:ModelId"];
+// Load secrets
+builder.Configuration
+    .AddJsonFile("appsettings.Secrets.json", optional: true, reloadOnChange: true);
 
-// Add services to the container.
+// Load keys and model IDs
+var openAiKey = builder.Configuration["OpenAi:ApiKey"];
+var openAiModel = builder.Configuration["OpenAi:ModelId"];
+var openAiEmbeddingModel = builder.Configuration["OpenAi:EmbeddingModelId"];
+
+// Register OpenAI embedding generation service
+builder.Services.AddOpenAITextEmbeddingGeneration(
+    modelId: openAiEmbeddingModel,
+    apiKey: openAiKey
+);
+
+// Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = IdentityConstants.BearerScheme;
-        options.DefaultChallengeScheme = IdentityConstants.BearerScheme;
-        options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
-    })
-    .AddCookie(IdentityConstants.ApplicationScheme)
-    .AddBearerToken(IdentityConstants.BearerScheme);
+{
+    options.DefaultAuthenticateScheme = IdentityConstants.BearerScheme;
+    options.DefaultChallengeScheme = IdentityConstants.BearerScheme;
+    options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+})
+.AddCookie(IdentityConstants.ApplicationScheme)
+.AddBearerToken(IdentityConstants.BearerScheme);
 
 builder.Services.AddAuthorizationBuilder();
-builder.Services.AddDbContext<TodoContext>(x => x.UseNpgsql("DataSource=app.db"));
+
+builder.Services.AddDbContext<TodoContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("TodoContext"), o => o.UseVector()));
+
 builder.Services.AddIdentityCore<User>()
     .AddEntityFrameworkStores<TodoContext>()
     .AddApiEndpoints();
 
-// Replace in-memory DB with PostgreSQL
-builder.Services.AddDbContext<TodoContext>(opt =>
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("TodoContext"), (o) => o.UseVector()
-    ));
-
-builder.Services.AddScoped(sp =>
+// Register Semantic Kernel
+builder.Services.AddScoped<Kernel>(sp =>
 {
-    kernelBuilder.AddGoogleAIGeminiChatCompletion(
-        modelId: geminiModel,
-        apiKey: geminiKey);
+    var embeddingGenerator = sp.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();
 
+    var kernelBuilder = Kernel.CreateBuilder()
+        .AddOpenAIChatCompletion(modelId: openAiModel, apiKey: openAiKey);
+        
     var kernel = kernelBuilder.Build();
 
     var dbContext = sp.GetRequiredService<TodoContext>();
-    var embeddingGenerator = sp.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();
 
     var filePlugin = new FilePlugin(sp, dbContext, embeddingGenerator);
-    var todoPlugin = new ToDoPlugin(sp,  dbContext, embeddingGenerator, new TodoService(dbContext, new HttpContextAccessor()));
-    
+    var todoPlugin = new ToDoPlugin(sp, dbContext, embeddingGenerator, new TodoService(dbContext, new HttpContextAccessor()));
+
     kernel.Plugins.AddFromObject(filePlugin, "FilePlugin");
     kernel.Plugins.AddFromObject(todoPlugin, "ToDoPlugin");
-    
+
     return kernel;
 });
 
+#pragma warning disable SKEXP0010
+builder.Services.AddOpenAIEmbeddingGenerator(modelId:openAiEmbeddingModel, apiKey:openAiKey);
+#pragma warning restore SKEXP0010
 
-builder.Services.AddGoogleAIEmbeddingGenerator(
-    modelId: "text-embedding-004",
-    apiKey: "AIzaSyDMVewunSABShabhXiJcKNxI5Yi95OCzLU"
-);
-
-builder.Services.AddCors(options =>
+// Expose chat completion service separately if needed
+builder.Services.AddScoped(sp =>
 {
-    options.AddPolicy("AllowFrontend",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:5000")
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials();
-        });
+    var kernel = sp.GetRequiredService<Kernel>();
+    return kernel.GetRequiredService<IChatCompletionService>();
 });
 
-builder.Services.AddScoped(sp => {var kernel = sp.GetRequiredService<Kernel>();    
-    return kernel.GetRequiredService<IChatCompletionService>();});
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(options =>
+    app.UseSwaggerUI(c =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
     });
 }
 
 app.UseHttpsRedirection();
-
 app.UseCors("AllowFrontend");
-
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapIdentityApi<User>();
-
 app.MapControllers();
 
 app.Run();

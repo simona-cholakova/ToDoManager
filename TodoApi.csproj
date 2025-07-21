@@ -24,6 +24,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.0.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.60.0-alpha" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.60.0" />
     <PackageReference Include="Microsoft.SemanticKernel.Connectors.PgVector" Version="1.60.0-preview" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
@@ -32,6 +33,9 @@
     <PackageReference Include="Pgvector.EntityFrameworkCore" Version="0.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
+<PropertyGroup>
+  <NoWarn>$(NoWarn);SKEXP0011</NoWarn>
+</PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />

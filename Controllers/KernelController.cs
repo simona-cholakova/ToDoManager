@@ -5,7 +5,6 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.Google;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.AI;
 using TodoApi.Models;
@@ -43,76 +42,83 @@ namespace TodoApi.Controllers
         }
         
         [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> PromptText([FromBody] string inputText)
+[HttpPost]
+public async Task<IActionResult> PromptText([FromBody] string inputText)
+{
+    var chatHistory = new ChatHistory();
+    string userId = _userManager.GetUserId(User);
+
+    // Load recent user chat history
+    List<UserContextHistory> userChat = await _context.UserContextHistory
+        .Where(h => h.userId == userId)
+        .OrderByDescending(h => h.Id)
+        .Take(10)
+        .ToListAsync();
+
+    userChat.Reverse(); // oldest to newest
+    foreach (var prompt in userChat)
+    {
+        chatHistory.AddUserMessage(prompt.userPrompt);
+        chatHistory.AddAssistantMessage(prompt.agentResponse);
+    }
+
+    // Embed current prompt
+    var promptEmbedding = await _embeddingGenerator.GenerateAsync(inputText);
+    var userVector = promptEmbedding.Vector.ToArray();
+
+    // Get all file chunks with their embeddings
+    var allChunks = await _context.FileChunks
+        .Include(fc => fc.FileRecord) // Include related file metadata
+        .ToListAsync();
+
+    // Find the most similar chunk by cosine similarity
+    var topMatch = allChunks
+        .Select(chunk => new
         {
-            var chatHistory = new ChatHistory();
-            string userId = _userManager.GetUserId(User);
+            Chunk = chunk,
+            Similarity = CosineSimilarity(userVector, chunk.Embedding.ToArray())
+        })
+        .OrderByDescending(x => x.Similarity)
+        .FirstOrDefault();
 
-            // Load recent user chat history
-            List<UserContextHistory> userChat = await _context.UserContextHistory
-                .Where(h => h.userId == userId)
-                .OrderByDescending(h => h.Id)
-                .Take(10)
-                .ToListAsync();
+    Console.WriteLine($"Top match chunk from file: {topMatch?.Chunk.FileRecord.FileName}, Page: {topMatch?.Chunk.PageNumber}, Similarity: {topMatch?.Similarity}");
 
-            userChat.Reverse(); // oldest to newest
-            foreach (var prompt in userChat)
-            {
-                chatHistory.AddUserMessage(prompt.userPrompt);
-                chatHistory.AddAssistantMessage(prompt.agentResponse);
-            }
+    // Inject the top relevant chunk content into the system message
+    if (topMatch != null && topMatch.Similarity > 0.4) // Adjust threshold as needed
+    {
+        chatHistory.AddSystemMessage(
+            $"@You are DinitBot, a helpful assistant that writes rules for credit card transactions, based on the rules provided in the documents.                                After performing any action please summarize the action taken and the result. When writing a rule provide examples from the documents and say where they are are located. After that provide the rule and explain all parts of the rule and highlight the full rule(condition) in bold." +
+            $"If you can't fulfill the prompt with the available tools, state that. " +
+            $"Before using general knowledge always check the documents in the database." +
+            $"Also, write it clearly in new lines. Highlight the rule so it is visible. For country codes, write the numerical values.\n" +
+            $"File: {topMatch.Chunk.FileRecord.FileName}, Page: {topMatch.Chunk.PageNumber}\n\n{topMatch.Chunk.Content}"
+        );
+    }
 
-            //Embed current prompt
-            var promptEmbedding = await _embeddingGenerator.GenerateAsync(inputText);
-            var userVector = promptEmbedding.Vector.ToArray();
+    // Add user message last
+    chatHistory.AddUserMessage(inputText);
 
-            //Get all stored file embeddings
-            var allFiles = await _context.FileRecords.ToListAsync();
+    var settings = new GeminiPromptExecutionSettings
+    {
+        ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
+        FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
+    };
 
-            //Find the most similar file using cosine similarity
-            var topMatch = allFiles
-                .Select(file => new
-                {
-                    File = file,
-                    Similarity = CosineSimilarity(userVector, file.Embedding.ToArray())
-                })
-                .OrderByDescending(x => x.Similarity)
-                .FirstOrDefault();
-            
-            Console.WriteLine($"Top match: {topMatch?.File.FileName}, Similarity: {topMatch?.Similarity}");
+    var result = await _chatCompletionService.GetChatMessageContentsAsync(chatHistory, settings, _kernel);
 
-            //Inject the top relevant file (if relevant)
-            if (topMatch != null) // adjust threshold if needed
-            {
-                chatHistory.AddSystemMessage(
-                    $"Always firstly try to use the following file to assist in your answer. " +
-                    $"File: {topMatch.File.FileName}\n\n{topMatch.File.Content}"
-                );
-            }
+    // Save conversation to DB
+    var userContextHistory = new UserContextHistory
+    {
+        userPrompt = inputText,
+        userId = userId,
+        agentResponse = result[0].Content
+    };
+    _context.UserContextHistory.Add(userContextHistory);
+    await _context.SaveChangesAsync();
 
-            // 🔹 Add the actual user message last
-            chatHistory.AddUserMessage(inputText);
+    return Ok(result[0].Content);
+}
 
-            var settings = new GeminiPromptExecutionSettings
-            {
-                ToolCallBehavior = GeminiToolCallBehavior.AutoInvokeKernelFunctions,
-                FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(),
-            };
-
-            var result = await _chatCompletionService.GetChatMessageContentsAsync(chatHistory, settings, _kernel);
-
-            // Save conversation to DB
-            var userContextHistory = new UserContextHistory
-            {
-                userPrompt = inputText,
-                userId = userId,
-                agentResponse = result[0].Content
-            };
-            _context.UserContextHistory.Add(userContextHistory);
-            await _context.SaveChangesAsync();
-            return Ok(result[0].Content);
-        }
         
         private static float CosineSimilarity(float[] vectorA, float[] vectorB)
         {

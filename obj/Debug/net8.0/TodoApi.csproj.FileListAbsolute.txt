@@ -764,7 +764,6 @@ C:\Users\adm-scholakova\Desktop\ToDoManager\obj\Debug\net8.0\refint\TodoApi.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\obj\Debug\net8.0\TodoApi.pdb
 C:\Users\adm-scholakova\Desktop\ToDoManager\obj\Debug\net8.0\TodoApi.genruntimeconfig.cache
 C:\Users\adm-scholakova\Desktop\ToDoManager\obj\Debug\net8.0\ref\TodoApi.dll
-C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Azure.AI.OpenAI.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.Bcl.HashCode.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.Extensions.AI.dll
@@ -1242,3 +1241,6 @@ C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\runtimes\win-arm\na
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\appsettings.Secrets.json
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.Extensions.AI.OpenAI.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\OpenAI.dll

@@ -35,27 +35,25 @@ namespace TodoApi.Plugins
             var vector = new Pgvector.Vector(embedding.Vector);
 
             // Retrieve all files with their cosine distances
-            var allMatches = await _context.FileRecords
-                .Select(f => new
+            var matches = await _context.FileChunks
+                .Include(c => c.FileRecord)
+                .Select(c => new
                 {
-                    f.FileName,
-                    f.Content,
-                    Distance = f.Embedding!.CosineDistance(vector)
+                    c.FileRecord.FileName,
+                    c.PageNumber,
+                    c.Content,
+                    Distance = c.Embedding!.CosineDistance(vector)
                 })
-                .OrderBy(f => f.Distance)
+                .OrderBy(c => c.Distance)
+                .Where(c => c.Distance < 0.4)
+                .Take(5)
                 .ToListAsync();
 
-            // Filter by distance threshold (you can adjust 0.4 as needed)
-            var matchingFiles = allMatches
-                .Where(f => f.Distance < 0.4)
-                .Take(5)
-                .ToList();
+            if (!matches.Any())
+                return "No relevant file chunks found.";
 
-            if (matchingFiles.Count == 0)
-                return "No relevant files found.";
-            
-            return string.Join("\n\n", matchingFiles.Select(f =>
-                $"From {f.FileName}:\n{f.Content}"
+            return string.Join("\n\n", matches.Select(m =>
+                $"From {m.FileName}, page {m.PageNumber}:\n{m.Content}"
             ));
         }
 
