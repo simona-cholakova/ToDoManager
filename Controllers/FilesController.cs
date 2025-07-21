@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.AI;
 using UglyToad.PdfPig;
 using Pgvector;
 using UglyToad.PdfPig.Content;
+using WebApplication2.Services;
 
 
 namespace TodoApi.Controllers
@@ -28,9 +30,9 @@ namespace TodoApi.Controllers
             _userManager = userManager; // Store it
             _embeddingGenerator = embeddingGenerator;
         }
+        
 
-
-        [HttpPost("add-file")]
+    [HttpPost("add-file")]
 public async Task<IActionResult> AddFile(IFormFile newFile)
 {
     if (newFile == null || string.IsNullOrWhiteSpace(newFile.FileName))
@@ -44,46 +46,90 @@ public async Task<IActionResult> AddFile(IFormFile newFile)
     var fileRecord = new FileRecord
     {
         FileName = newFile.FileName,
-        Content = string.Empty // Optionally populate later
+        Content = string.Empty
     };
 
     var fileChunks = new List<FileChunk>();
+    var extension = Path.GetExtension(newFile.FileName).ToLowerInvariant();
 
-    if (Path.GetExtension(newFile.FileName).Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+    if (extension == ".pdf")
     {
         using var pdf = PdfDocument.Open(newFile.OpenReadStream());
         var fullBuilder = new StringBuilder();
+        int pageNum = 1;
 
         foreach (Page page in pdf.GetPages())
         {
             string pageText = page.Text;
             fullBuilder.AppendLine(pageText);
 
-            var embedding = await _embeddingGenerator.GenerateAsync(pageText);
-            fileChunks.Add(new FileChunk
+            var chunks = FileService.SplitTextIntoChunks(pageText, 2000); // safe character chunking
+            foreach (var chunk in chunks)
             {
-                FileRecord = fileRecord,
-                PageNumber = page.Number,
-                Content = pageText,
-                Embedding = new Vector(embedding.Vector.ToArray())
-            });
+                var embedding = await _embeddingGenerator.GenerateAsync(chunk);
+                fileChunks.Add(new FileChunk
+                {
+                    FileRecord = fileRecord,
+                    PageNumber = pageNum,
+                    Content = chunk,
+                    Embedding = new Vector(embedding.Vector.ToArray())
+                });
+            }
+
+            pageNum++;
         }
 
         fileRecord.Content = fullBuilder.ToString();
+    }
+    else if (extension == ".json")
+    {
+        using var reader = new StreamReader(newFile.OpenReadStream(), Encoding.UTF8, true);
+        var jsonText = await reader.ReadToEndAsync();
+
+        try
+        {
+            var jsonDoc = JsonDocument.Parse(jsonText);
+            var flattenedText = FileService.FlattenJson(jsonDoc.RootElement);
+            var chunks = FileService.SplitTextIntoChunks(flattenedText, 2000);
+
+            int chunkNumber = 1;
+            foreach (var chunk in chunks)
+            {
+                var embedding = await _embeddingGenerator.GenerateAsync(chunk);
+                fileChunks.Add(new FileChunk
+                {
+                    FileRecord = fileRecord,
+                    PageNumber = chunkNumber++,
+                    Content = chunk,
+                    Embedding = new Vector(embedding.Vector.ToArray())
+                });
+            }
+
+            fileRecord.Content = flattenedText;
+        }
+        catch (JsonException)
+        {
+            return BadRequest("Invalid JSON content.");
+        }
     }
     else
     {
         using var reader = new StreamReader(newFile.OpenReadStream());
         var text = await reader.ReadToEndAsync();
+        var chunks = FileService.SplitTextIntoChunks(text, 2000);
 
-        var embedding = await _embeddingGenerator.GenerateAsync(text);
-        fileChunks.Add(new FileChunk
+        int chunkNumber = 1;
+        foreach (var chunk in chunks)
         {
-            FileRecord = fileRecord,
-            PageNumber = 1,
-            Content = text,
-            Embedding = new Vector(embedding.Vector.ToArray())
-        });
+            var embedding = await _embeddingGenerator.GenerateAsync(chunk);
+            fileChunks.Add(new FileChunk
+            {
+                FileRecord = fileRecord,
+                PageNumber = chunkNumber++,
+                Content = chunk,
+                Embedding = new Vector(embedding.Vector.ToArray())
+            });
+        }
 
         fileRecord.Content = text;
     }
@@ -94,6 +140,7 @@ public async Task<IActionResult> AddFile(IFormFile newFile)
 
     return Ok($"File '{newFile.FileName}' uploaded with {fileChunks.Count} chunk(s).");
 }
+
 
 
         [HttpGet("get-file")]

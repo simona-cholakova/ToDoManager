@@ -1,14 +1,20 @@
-﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+﻿# Use official Node.js image
+FROM node:18
 
-# Copy everything into /src
+# Create app directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy app source
 COPY . .
 
-# Restore and publish
-RUN dotnet restore
-RUN dotnet publish -c Release -o /app/publish
+# Expose port
+EXPOSE 3000
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
-WORKDIR /app
-COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "TodoApi.dll"]
+# Start app
+CMD ["node", "app.js"]

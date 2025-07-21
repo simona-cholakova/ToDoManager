@@ -13,6 +13,6 @@ public class FileChunk
 
     public string Content { get; set; } = string.Empty;
 
-    [Column(TypeName = "vector(768)")]
+    [Column(TypeName = "vector(1536)")]
     public Pgvector.Vector Embedding { get; set; } = default!;
 }

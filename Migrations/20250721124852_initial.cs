@@ -213,7 +213,7 @@ namespace TodoApi.Migrations
                     FileRecordId = table.Column<int>(type: "integer", nullable: false),
                     PageNumber = table.Column<int>(type: "integer", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
-                    Embedding = table.Column<Vector>(type: "vector(768)", nullable: false)
+                    Embedding = table.Column<Vector>(type: "vector(1536)", nullable: false)
                 },
                 constraints: table =>
                 {

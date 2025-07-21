@@ -13,7 +13,7 @@ using TodoApi.Models;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    [Migration("20250721065856_initial")]
+    [Migration("20250721124852_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -172,7 +172,7 @@ namespace TodoApi.Migrations
 
                     b.Property<Vector>("Embedding")
                         .IsRequired()
-                        .HasColumnType("vector(768)");
+                        .HasColumnType("vector(1536)");
 
                     b.Property<int>("FileRecordId")
                         .HasColumnType("integer");
