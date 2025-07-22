@@ -1244,3 +1244,5 @@ C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\runtimes\win-x86\na
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\appsettings.Secrets.json
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.Extensions.AI.OpenAI.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\OpenAI.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Seq.Api.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Tavis.UriTemplates.dll

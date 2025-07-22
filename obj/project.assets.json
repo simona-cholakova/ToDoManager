@@ -4101,6 +4101,23 @@
           }
         }
       },
+      "Seq.Api/2025.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3",
+          "Tavis.UriTemplates": "2.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Seq.Api.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Seq.Api.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
         "type": "package",
         "dependencies": {
@@ -5000,6 +5017,15 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "Tavis.UriTemplates/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Tavis.UriTemplates.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Tavis.UriTemplates.dll": {}
         }
       },
       "YamlDotNet/16.3.0": {
@@ -10921,6 +10947,24 @@
         "polly.core.nuspec"
       ]
     },
+    "Seq.Api/2025.2.0": {
+      "sha512": "bUIieTpzVTwEeMyqEdS4xrfUMA9gb1e3oO2ZIeihzuynA9xDgbTGBxBMlM32VQ5bZBbR3eD+GS8k1jHlmBF4OA==",
+      "type": "package",
+      "path": "seq.api/2025.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/Seq.Api.dll",
+        "lib/net6.0/Seq.Api.xml",
+        "lib/net8.0/Seq.Api.dll",
+        "lib/net8.0/Seq.Api.xml",
+        "lib/netstandard2.0/Seq.Api.dll",
+        "lib/netstandard2.0/Seq.Api.xml",
+        "seq-api-icon.png",
+        "seq.api.2025.2.0.nupkg.sha512",
+        "seq.api.nuspec"
+      ]
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
       "sha512": "UxWuisvZ3uVcVOLJQv7urM/JiQH+v3TmaJc1BLKl5Dxfm/nTzTUrqswCqg/INiYLi61AXnHo1M1JPmPqqLnAdg==",
       "type": "package",
@@ -12485,6 +12529,18 @@
         "version.txt"
       ]
     },
+    "Tavis.UriTemplates/2.0.0": {
+      "sha512": "GbetWNcPIaXvWtanHlBqlEp2KflFrsJf8RBNXmI8Yyeft9CSGxNrcsoKWEiEzyrn7gGVQ25ZC6ep9UfWPR0Otw==",
+      "type": "package",
+      "path": "tavis.uritemplates/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Tavis.UriTemplates.dll",
+        "tavis.uritemplates.2.0.0.nupkg.sha512",
+        "tavis.uritemplates.nuspec"
+      ]
+    },
     "YamlDotNet/16.3.0": {
       "sha512": "SgMOdxbz8X65z8hraIs6hOEdnkH6hESTAIUa7viEngHOYaH+6q5XJmwr1+yb9vJpNQ19hCQY69xbFsLtXpobQA==",
       "type": "package",
@@ -12529,6 +12585,7 @@
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4",
       "PdfPig >= 0.1.11-alpha-20250715-016b7",
       "Pgvector.EntityFrameworkCore >= 0.2.2",
+      "Seq.Api >= 2025.2.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -12658,6 +12715,10 @@
             "target": "Package",
             "version": "[0.2.2, )"
           },
+          "Seq.Api": {
+            "target": "Package",
+            "version": "[2025.2.0, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.6.2, )"
@@ -12682,7 +12743,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

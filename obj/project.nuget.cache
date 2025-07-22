@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KJw46W+8+Kg=",
+  "dgSpecHash": "Fi9SI9HHGbg=",
   "success": true,
   "projectFilePath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
   "expectedPackageFiles": [
@@ -221,6 +221,7 @@
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\pgvector\\0.3.2\\pgvector.0.3.2.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\pgvector.entityframeworkcore\\0.2.2\\pgvector.entityframeworkcore.0.2.2.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\polly.core\\8.5.2\\polly.core.8.5.2.nupkg.sha512",
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\seq.api\\2025.2.0\\seq.api.2025.2.0.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.10\\sqlitepclraw.bundle_e_sqlite3.2.1.10.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\sqlitepclraw.core\\2.1.10\\sqlitepclraw.core.2.1.10.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.10\\sqlitepclraw.lib.e_sqlite3.2.1.10.nupkg.sha512",
@@ -267,6 +268,7 @@
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\system.threading.channels\\8.0.0\\system.threading.channels.8.0.0.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\system.threading.tasks.dataflow\\8.0.0\\system.threading.tasks.dataflow.8.0.0.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\tavis.uritemplates\\2.0.0\\tavis.uritemplates.2.0.0.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512"
   ],
   "logs": [

@@ -31,6 +31,7 @@
     <PackageReference Include="NSwag.AspNetCore" Version="14.4.0" />
     <PackageReference Include="PdfPig" Version="0.1.11-alpha-20250715-016b7" />
     <PackageReference Include="Pgvector.EntityFrameworkCore" Version="0.2.2" />
+    <PackageReference Include="Seq.Api" Version="2025.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 <PropertyGroup>

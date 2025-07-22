@@ -33,64 +33,90 @@ namespace TodoApi.Controllers
         
 
     [HttpPost("add-file")]
-public async Task<IActionResult> AddFile(IFormFile newFile)
-{
-    if (newFile == null || string.IsNullOrWhiteSpace(newFile.FileName))
-        return BadRequest("Invalid file data.");
-
-    // Check if file exists
-    var exists = await _db.FileRecords.AnyAsync(f => f.FileName == newFile.FileName);
-    if (exists)
-        return BadRequest($"File '{newFile.FileName}' already exists.");
-
-    var fileRecord = new FileRecord
+    public async Task<IActionResult> AddFile(IFormFile newFile)
     {
-        FileName = newFile.FileName,
-        Content = string.Empty
-    };
+        if (newFile == null || string.IsNullOrWhiteSpace(newFile.FileName))
+            return BadRequest("Invalid file data.");
 
-    var fileChunks = new List<FileChunk>();
-    var extension = Path.GetExtension(newFile.FileName).ToLowerInvariant();
+        // Check if file exists
+        var exists = await _db.FileRecords.AnyAsync(f => f.FileName == newFile.FileName);
+        if (exists)
+            return BadRequest($"File '{newFile.FileName}' already exists.");
 
-    if (extension == ".pdf")
-    {
-        using var pdf = PdfDocument.Open(newFile.OpenReadStream());
-        var fullBuilder = new StringBuilder();
-        int pageNum = 1;
-
-        foreach (Page page in pdf.GetPages())
+        var fileRecord = new FileRecord
         {
-            string pageText = page.Text;
-            fullBuilder.AppendLine(pageText);
+            FileName = newFile.FileName,
+            Content = string.Empty
+        };
 
-            var chunks = FileService.SplitTextIntoChunks(pageText, 2000); // safe character chunking
-            foreach (var chunk in chunks)
+        var fileChunks = new List<FileChunk>();
+        var extension = Path.GetExtension(newFile.FileName).ToLowerInvariant();
+
+        if (extension == ".pdf")
+        {
+            using var pdf = PdfDocument.Open(newFile.OpenReadStream());
+            var fullBuilder = new StringBuilder();
+            int pageNum = 1;
+
+            foreach (Page page in pdf.GetPages())
             {
-                var embedding = await _embeddingGenerator.GenerateAsync(chunk);
-                fileChunks.Add(new FileChunk
+                string pageText = page.Text;
+                fullBuilder.AppendLine(pageText);
+
+                var chunks = FileService.SplitTextIntoChunks(pageText, 2000); //safe character chunking
+                foreach (var chunk in chunks)
                 {
-                    FileRecord = fileRecord,
-                    PageNumber = pageNum,
-                    Content = chunk,
-                    Embedding = new Vector(embedding.Vector.ToArray())
-                });
+                    var embedding = await _embeddingGenerator.GenerateAsync(chunk);
+                    fileChunks.Add(new FileChunk
+                    {
+                        FileRecord = fileRecord,
+                        PageNumber = pageNum,
+                        Content = chunk,
+                        Embedding = new Vector(embedding.Vector.ToArray())
+                    });
+                }
+
+                pageNum++;
             }
 
-            pageNum++;
+            fileRecord.Content = fullBuilder.ToString();
         }
-
-        fileRecord.Content = fullBuilder.ToString();
-    }
-    else if (extension == ".json")
-    {
-        using var reader = new StreamReader(newFile.OpenReadStream(), Encoding.UTF8, true);
-        var jsonText = await reader.ReadToEndAsync();
-
-        try
+        else if (extension == ".json")
         {
-            var jsonDoc = JsonDocument.Parse(jsonText);
-            var flattenedText = FileService.FlattenJson(jsonDoc.RootElement);
-            var chunks = FileService.SplitTextIntoChunks(flattenedText, 2000);
+            using var reader = new StreamReader(newFile.OpenReadStream(), Encoding.UTF8, true);
+            var jsonText = await reader.ReadToEndAsync();
+
+            try
+            {
+                var jsonDoc = JsonDocument.Parse(jsonText);
+                var flattenedText = FileService.FlattenJson(jsonDoc.RootElement);
+                var chunks = FileService.SplitTextIntoChunks(flattenedText, 2000);
+
+                int chunkNumber = 1;
+                foreach (var chunk in chunks)
+                {
+                    var embedding = await _embeddingGenerator.GenerateAsync(chunk);
+                    fileChunks.Add(new FileChunk
+                    {
+                        FileRecord = fileRecord,
+                        PageNumber = chunkNumber++,
+                        Content = chunk,
+                        Embedding = new Vector(embedding.Vector.ToArray())
+                    });
+                }
+
+                fileRecord.Content = flattenedText;
+            }
+            catch (JsonException)
+            {
+                return BadRequest("Invalid JSON content.");
+            }
+        }
+        else
+        {
+            using var reader = new StreamReader(newFile.OpenReadStream());
+            var text = await reader.ReadToEndAsync();
+            var chunks = FileService.SplitTextIntoChunks(text, 2000);
 
             int chunkNumber = 1;
             foreach (var chunk in chunks)
@@ -105,41 +131,15 @@ public async Task<IActionResult> AddFile(IFormFile newFile)
                 });
             }
 
-            fileRecord.Content = flattenedText;
+            fileRecord.Content = text;
         }
-        catch (JsonException)
-        {
-            return BadRequest("Invalid JSON content.");
-        }
+
+        await _db.FileRecords.AddAsync(fileRecord);
+        await _db.FileChunks.AddRangeAsync(fileChunks);
+        await _db.SaveChangesAsync();
+
+        return Ok($"File '{newFile.FileName}' uploaded with {fileChunks.Count} chunk(s).");
     }
-    else
-    {
-        using var reader = new StreamReader(newFile.OpenReadStream());
-        var text = await reader.ReadToEndAsync();
-        var chunks = FileService.SplitTextIntoChunks(text, 2000);
-
-        int chunkNumber = 1;
-        foreach (var chunk in chunks)
-        {
-            var embedding = await _embeddingGenerator.GenerateAsync(chunk);
-            fileChunks.Add(new FileChunk
-            {
-                FileRecord = fileRecord,
-                PageNumber = chunkNumber++,
-                Content = chunk,
-                Embedding = new Vector(embedding.Vector.ToArray())
-            });
-        }
-
-        fileRecord.Content = text;
-    }
-
-    await _db.FileRecords.AddAsync(fileRecord);
-    await _db.FileChunks.AddRangeAsync(fileChunks);
-    await _db.SaveChangesAsync();
-
-    return Ok($"File '{newFile.FileName}' uploaded with {fileChunks.Count} chunk(s).");
-}
 
 
 
