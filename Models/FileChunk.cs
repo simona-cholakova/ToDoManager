@@ -15,4 +15,9 @@ public class FileChunk
 
     [Column(TypeName = "vector(1536)")]
     public Pgvector.Vector Embedding { get; set; } = default!;
+    
+    public int? ClusterID { get; set; }
+
+    public string? ClusterMethod { get; set; }
+
 }

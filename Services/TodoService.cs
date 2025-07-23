@@ -24,9 +24,9 @@ public class TodoService
     }
     public async Task<IEnumerable<TodoItem>> GetAllTodos()
     {
-      List<TodoItem> todos = await _context.ToDoItems.Where(p => p.UserId == GetUserId()).ToListAsync();
+        List<TodoItem> todos = await _context.ToDoItems.Where(p => p.UserId == GetUserId()).ToListAsync();
 
-      return todos;
+        return todos;
     }
 
     public async Task<bool> AddTodo(bool isComplete, string task)

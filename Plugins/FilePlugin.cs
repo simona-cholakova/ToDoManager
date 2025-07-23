@@ -18,8 +18,6 @@ namespace TodoApi.Plugins
         private readonly TodoContext _context;
         private readonly IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator;
         private readonly TodoService _todoService;
-        private readonly HttpClient client = new HttpClient();
-        private readonly SeqConnection _conn = new SeqConnection("http://localhost:32768", "UtnUVhWx91hv5x9xGIBz");
 
         public FilePlugin(IServiceProvider serviceProvider, TodoContext context, IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator)
         {
@@ -32,21 +30,33 @@ namespace TodoApi.Plugins
         [KernelFunction, Description("Searches if the user's prompt can be found in the files from the database. Always read from the most similar file.")]
         public async Task<string> searchFileContent(string query)
         {
-            
             Console.WriteLine("Function invoked yay!");
 
             var embedding = await _embeddingGenerator.GenerateAsync(query);
-            var vector = new Pgvector.Vector(embedding.Vector);
+            var queryVector = new Pgvector.Vector(embedding.Vector);
 
-            // Retrieve all files with their cosine distances
+            // Only consider chunks that have been clustered
+            var closestChunk = await _context.FileChunks
+                .AsNoTracking()
+                .Where(c => c.ClusterID != null)
+                .OrderBy(c => c.Embedding!.CosineDistance(queryVector))
+                .FirstOrDefaultAsync();
+
+            if (closestChunk == null)
+                return "No clustered chunks available in the database.";
+
+            int targetCluster = closestChunk.ClusterID!.Value;
+            Console.WriteLine($"Closest cluster: {targetCluster}");
+
             var matches = await _context.FileChunks
                 .Include(c => c.FileRecord)
+                .Where(c => c.ClusterID == targetCluster)
                 .Select(c => new
                 {
                     c.FileRecord.FileName,
                     c.PageNumber,
                     c.Content,
-                    Distance = c.Embedding!.CosineDistance(vector)
+                    Distance = c.Embedding!.CosineDistance(queryVector)
                 })
                 .OrderBy(c => c.Distance)
                 .Where(c => c.Distance < 0.4)
@@ -54,27 +64,14 @@ namespace TodoApi.Plugins
                 .ToListAsync();
 
             if (!matches.Any())
-                return "No relevant file chunks found.";
+                return $"No relevant file chunks found in cluster {targetCluster}.";
 
             return string.Join("\n\n", matches.Select(m =>
                 $"From {m.FileName}, page {m.PageNumber}:\n{m.Content}"
             ));
         }
+
         
-        [KernelFunction("GetLogs")]
-        [Description("Fetch the event from SEQ using the provided filters")]
-        public async Task<IEnumerable<string>> QueryLogs(string filters)
-        {
-            Console.WriteLine(filters);    
-            var res = _conn.Events.EnumerateAsync(filter: filters, render: true);        
-            List<string> logs = new List<string>();
-            await foreach (var evt in res)
-            {
-                Console.WriteLine(evt.RenderedMessage);        
-                logs.Add(evt.RenderedMessage);
-            }
-            return logs;
-        }
     }
 }
 

@@ -22,7 +22,8 @@ public class ToDoPlugin
         _embeddingGenerator = embeddingGenerator;
         _todoService = todoService;
     }
-    [KernelFunction, Description("This function gets all todo tasks")]
+    
+    [KernelFunction("GetAllTodos"), Description("This function gets all todo tasks")]
     public async Task<string> GetAllTodoTasksAsync()
     {
         using var scope = _serviceProvider.CreateScope();

@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Fi9SI9HHGbg=",
+  "dgSpecHash": "+NUmHdAIBEA=",
   "success": true,
   "projectFilePath": "C:\\Users\\adm-scholakova\\Desktop\\ToDoManager\\TodoApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\accord\\3.8.2-alpha\\accord.3.8.2-alpha.nupkg.sha512",
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\accord.machinelearning\\3.8.2-alpha\\accord.machinelearning.3.8.2-alpha.nupkg.sha512",
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\accord.math\\3.8.2-alpha\\accord.math.3.8.2-alpha.nupkg.sha512",
+    "C:\\Users\\adm-scholakova\\.nuget\\packages\\accord.statistics\\3.8.2-alpha\\accord.statistics.3.8.2-alpha.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\aspire.hosting\\9.3.1\\aspire.hosting.9.3.1.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\aspire.hosting.postgresql\\9.3.1\\aspire.hosting.postgresql.9.3.1.nupkg.sha512",
     "C:\\Users\\adm-scholakova\\.nuget\\packages\\aspnetcore.healthchecks.npgsql\\9.0.0\\aspnetcore.healthchecks.npgsql.9.0.0.nupkg.sha512",

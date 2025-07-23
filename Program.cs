@@ -28,7 +28,57 @@ builder.Services.AddOpenAITextEmbeddingGeneration(
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API", Version = "v1" });
+
+    // Bearer token authentication
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Description = "JWT Bearer token. Example: Bearer {token}",
+        Name = "Authorization",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT"
+    });
+
+    // Cookie authentication
+    c.AddSecurityDefinition("cookieAuth", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        In = Microsoft.OpenApi.Models.ParameterLocation.Cookie,
+        Name = ".AspNetCore.Identity.Application", // Default cookie name for Identity
+        Description = "Cookie-based auth"
+    });
+
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        },
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "cookieAuth"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
+
 
 builder.Services.AddAuthentication(options =>
 {
@@ -62,9 +112,11 @@ builder.Services.AddScoped<Kernel>(sp =>
 
     var filePlugin = new FilePlugin(sp, dbContext, embeddingGenerator);
     var todoPlugin = new ToDoPlugin(sp, dbContext, embeddingGenerator, new TodoService(dbContext, new HttpContextAccessor()));
+    var seqPlugin = new SeqPlugin();
 
     kernel.Plugins.AddFromObject(filePlugin, "FilePlugin");
     kernel.Plugins.AddFromObject(todoPlugin, "ToDoPlugin");
+    kernel.Plugins.AddFromObject(seqPlugin, "SeqPlugin");
 
     return kernel;
 });
@@ -80,7 +132,7 @@ builder.Services.AddScoped(sp =>
     return kernel.GetRequiredService<IChatCompletionService>();
 });
 
-// CORS
+//CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>

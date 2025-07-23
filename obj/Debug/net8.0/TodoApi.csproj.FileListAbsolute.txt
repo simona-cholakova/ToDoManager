@@ -1246,3 +1246,9 @@ C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Microsoft.Extension
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\OpenAI.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Seq.Api.dll
 C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Tavis.UriTemplates.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Accord.dll.config
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Accord.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Accord.MachineLearning.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Accord.Math.Core.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Accord.Math.dll
+C:\Users\adm-scholakova\Desktop\ToDoManager\bin\Debug\net8.0\Accord.Statistics.dll

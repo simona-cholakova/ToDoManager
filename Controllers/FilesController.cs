@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.AI;
 using UglyToad.PdfPig;
 using Pgvector;
+using TodoApi.Utils;
 using UglyToad.PdfPig.Content;
 using WebApplication2.Services;
 
@@ -19,16 +20,18 @@ namespace TodoApi.Controllers
     {
         private readonly TodoContext _db;
         private readonly IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator;
-
+        private readonly FileService _fileService;
         private readonly UserManager<User> _userManager;
+        private readonly FileRecord _fileRecord;
 
         public FilesController(
             TodoContext db,
             UserManager<User> userManager, IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator) 
         {
             _db = db;
-            _userManager = userManager; // Store it
+            _userManager = userManager; 
             _embeddingGenerator = embeddingGenerator;
+            _fileService = new FileService(_db, embeddingGenerator);
         }
         
 
@@ -63,7 +66,7 @@ namespace TodoApi.Controllers
                 string pageText = page.Text;
                 fullBuilder.AppendLine(pageText);
 
-                var chunks = FileService.SplitTextIntoChunks(pageText, 2000); //safe character chunking
+                var chunks = FileService.SplitTextIntoChunks(pageText, 2000); 
                 foreach (var chunk in chunks)
                 {
                     var embedding = await _embeddingGenerator.GenerateAsync(chunk);
@@ -111,7 +114,46 @@ namespace TodoApi.Controllers
             {
                 return BadRequest("Invalid JSON content.");
             }
+        }else if (extension == ".jsonl")
+        {
+            using var stream = newFile.OpenReadStream();
+            using var reader = new StreamReader(stream);
+            string? line;
+            List<string> lineBatch = new();
+            int currentTokenCount = 0;
+            const int maxTokensPerBatch = 7000;
+
+            var fullTextBuilder = new StringBuilder(); // <-- build the full text here
+
+            while ((line = await reader.ReadLineAsync()) != null)
+            {
+                string messageLine = JsonLSplitter.ExtractValuesOnly(line);
+                fullTextBuilder.AppendLine(messageLine); // <-- accumulate original content
+
+                int estimatedTokens = _fileService.EstimateTokenCount(messageLine);
+                if (currentTokenCount + estimatedTokens > maxTokensPerBatch && lineBatch.Count > 0)
+                {
+                    await _fileService.ProcessBatch(lineBatch, fileRecord);
+                    lineBatch.Clear();
+                    currentTokenCount = 0;
+                }
+
+                lineBatch.Add(messageLine);
+                currentTokenCount += estimatedTokens;
+            }
+
+            // process remaining
+            if (lineBatch.Count > 0)
+            {
+                await _fileService.ProcessBatch(lineBatch, fileRecord);
+            }
+
+            fileRecord.Content = fullTextBuilder.ToString(); // <-- now set content
+
+            _fileService.KMeansClustering(fileRecord);
         }
+
+
         else
         {
             using var reader = new StreamReader(newFile.OpenReadStream());
@@ -137,6 +179,7 @@ namespace TodoApi.Controllers
         await _db.FileRecords.AddAsync(fileRecord);
         await _db.FileChunks.AddRangeAsync(fileChunks);
         await _db.SaveChangesAsync();
+        //_fileService.KMeansClustering(fileRecord);
 
         return Ok($"File '{newFile.FileName}' uploaded with {fileChunks.Count} chunk(s).");
     }
